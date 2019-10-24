@@ -1,0 +1,109 @@
+\RequirePackage{fontspec} % Use custom fonts on XeLaTeX
+\RequirePackage{scrhack} % Needed for koma-script classes
+\RequirePackage{ragged2e} % Justify with hyphenation
+\RequirePackage{microtype}
+\RequirePackage{scrlayer-scrpage}
+\usepackage{blindtext} % Mockup
+% \RequirePackage{showframe}
+% \RequirePackage{multicol}
+\RequirePackage[table,usenames,dvipsnames]{xcolor}
+
+\RequirePackage{graphicx}
+
+\RequirePackage{listings}
+\RequirePackage{longtable}
+\RequirePackage{tabu} % Tables
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\RequirePackage{rotfloat}
+\RequirePackage{pifont} % Dingbats
+
+\RequirePackage{enumitem} % For better lists
+\RequirePackage{subcaption} % Multiple figures at once
+
+\RequirePackage[colorlinks,pdfusetitle]{hyperref}
+\RequirePackage{varioref}
+
+\RequirePackage{hologo}
+
+\newcommand*{\Version}[1]{\gdef\@Version{#1}}
+\newcommand*{\@Version}{1.0}
+
+
+%------------------------------------------------
+%	Font
+%------------------------------------------------
+% \setromanfont{MinionPro}
+\setsansfont{Titillium}
+% \setmonofont{Consolas}
+
+%------------------------------------------------
+%	Symbols
+%------------------------------------------------
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+%------------------------------------------------
+%	Heading styles
+%------------------------------------------------
+
+\addtokomafont{disposition}{\sffamily}
+
+%------------------------------------------------
+%	Area settings
+%------------------------------------------------
+\storeareas\StandardArea % Standard margins
+\KOMAoptions{paper=landscape, DIV=current, headinclude=false, footinclude=false}
+\areaset{0.9\paperwidth}{\textheight}
+\storeareas\LandscapeArea % Landscape, small margins
+
+\StandardArea % Set standard margins
+
+%------------------------------------------------
+%	Headers and footers styles
+%------------------------------------------------
+% \pagestyle{scrheadings}
+% \KOMAoption{headsepline}{true}
+% \ohead{\sffamily\thepage}
+% \cfoot[]{}
+
+
+%------------------------------------------------
+%	Custom floats
+%------------------------------------------------
+\newcolumntype{L}{>{\RaggedRight\arraybackslash}X} % Left auto-adapt
+\newcolumntype{R}{>{\RaggedLeft\arraybackslash}X} % Right auto-adapt
+\newcolumntype{C}{>{\Centering\arraybackslash}X} % Centered auto-adapt
+
+\newfloat{diagram}{htbp}{lod}[chapter]
+\floatname{diagram}{Diagram}
+\newcommand*{\diagramautorefname}{Diagram}
+
+
+%------------------------------------------------
+%	Caption settings
+%------------------------------------------------
+\setkomafont{caption}{\small\sffamily\fontseries{l}\selectfont}
+\setkomafont{captionlabel}{\sffamily\fontseries{sb}\selectfont}
+\setcapindent{1em}
+
+%------------------------------------------------
+%	Label settings
+%------------------------------------------------
+\setkomafont{descriptionlabel}{\sffamily\fontseries{sb}\selectfont}
+
+%------------------------------------------------
+%	Hyperref setup
+%------------------------------------------------
+\definecolor{accent}{HTML}{165889}
+\hypersetup{
+  colorlinks=true, linktocpage=true, pdfstartpage=1,
+  pdfstartview=FitB, breaklinks=true, pdfpagemode=UseNone,
+  pageanchor=true, pdfpagemode=UseOutlines,
+  plainpages=false, bookmarksnumbered,
+  bookmarksopen=true, bookmarksopenlevel=1,
+  hypertexnames=true, pdfhighlight=/O,
+  urlcolor=accent, linkcolor=accent,
+  citecolor=accent
+}
+

@@ -1,0 +1,15 @@
+\defaultfontfeatures[Titillium]
+{
+  Extension = .otf,
+  UprightFont = *-Regular,
+  ItalicFont        = *-RegularItalic,
+  BoldFont          = *-Bold,
+  BoldItalicFont    = *-BoldItalic,
+  FontFace          = {l}{n}{*-Light},
+  FontFace          = {l}{it}{*-LightItalic},
+  FontFace          = {ul}{n}{*-Thin},
+  FontFace          = {ul}{it}{*-ThinItalic},
+  FontFace          = {k}{n}{*-Black},
+  FontFace          = {sb}{n}{*-Semibold},
+  FontFace          = {sb}{it}{*-SemiboldItalic}
+}
