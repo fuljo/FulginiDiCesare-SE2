@@ -1,0 +1,41 @@
+\section{Purpose}
+
+\subsection{General purpose}
+
+% TODO: write the general description
+
+\subsection{Goals}
+
+\begin{description}
+    \item[G1] The system must allow users to notify authorities of
+    parking violations, by uploading pictures of the violation
+    together with metadata
+    (date, time, position, licence plate of the vehicle)
+    \item[G2] The system must be able to extract the license plate number
+    from the photos uploaded by the users
+    \item[G3] The system must persistently store the violations
+    uploaded by the users
+    \item[G4] The authorithy must be able to visualize and possibly delete 
+    the single violations stored by the system
+    \item[G5] The authorithy must be able to assign a level of priority
+    to each violation
+    \item[G6] The authorithy must be able to visualize violation statistics
+    based on their location or responsible vehicle
+    \item[G7] The user must be able to visualize anonymized violation
+    statistics only based on their location
+    \item[G8] The system must be able to retrieve data about incidents
+    from the municipalities that offer it (through an API)
+    \item[G9] The system must be able to determine unsafe areas by
+    matching data about violations and data about accidents, and also
+    to suggest improvements to help preventing accidents      
+\end{description}
+
+\noindent
+The word \emph{must} in the description of this goals refers to a mandatory
+objective that the system will be able to accomplish, in the scope defined
+by the domain assumptions.
+However it is worth to point out that specifically for G2 and G9,
+the ability to accomplish the objective may vary depending on the
+quality of the input data.
+
+\subsection{Scope}
