@@ -1,0 +1,46 @@
+\section{Scope}
+The SafeStreets application is offered to willing citizens of a city who want 
+to contribute to their city’s public order. Meanwhile the service is also 
+designed for authorities that want to improve their control over traffic 
+violations. 
+The service can be seen as an intermediary between the two parts: citizens 
+and authorities.
+
+%TODO: put a disegnino
+
+First of all, the user must register to the service by providing his/her 
+fiscal code and a password of his choice. The S2B will be deployed in 
+Italy, so we can safely assume that the fiscal code can identify in a 
+unique way every user.
+
+The user after opening the application will be allowed to submit a picture 
+with all the related data such as date, time, position, generic notes.
+
+When the user detects a violation, it can open the software on his mobile 
+device and take a picture. The system will elaborate the picture in order to 
+auto-detect the licence plate number. Furthermore, the app will get from the 
+device the date, time and GPS position. The auto collected data will be shown 
+to the user who can correct it before being sent to the authority.
+The only data the user must manually insert is the infraction type, which 
+will be chosen from a finite list of possible violations.
+This process will be designed to be as smooth as possible, to offer a clean 
+user experience.
+
+Once the violation has been sent, an operator of the authority will review
+it and then decide whether to accept it. The operator may discard the
+violation when it contains erroneous or incomplete data. For example the
+photo may simply not show a violation, or it may happen that the licence
+plate in the picture is partially unreadable and the number inserted by
+the user is likely to be wrong.
+
+After accepting the violation, the operator will be able to assign it a level
+of priority, so that the authority will be able to efficiently schedule the
+intervention. Scheduling the intervention, by the way, is outside the scope
+of the S2B.
+
+The data collected is of course persistent as the S2B will offer various
+statistics to citizens and authorities.
+The authorities will be able to view statistics which aggregate violations
+of the same type, same location, same time, or same vehicle.
+On the other hand citizens will be able to view statistics regarding only 
+the location, time and infraction type.
