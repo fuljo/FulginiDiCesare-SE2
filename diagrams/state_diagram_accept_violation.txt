@@ -1,0 +1,16 @@
+@startuml
+left to right direction
+
+[*] --> ViolationReceived
+
+ViolationReceived --> DataReview : acceptViolation
+DataReview --> DiscardedViolation : tagAsMistake
+DataReview --> PrioritySelection : tagAsLegit
+PrioritySelection --> AcceptedViolation : assignPriority
+
+ViolationReceived --> DiscardedViolation : tagAsSpam
+
+DiscardedViolation --> [*]
+AcceptedViolation --> [*]
+
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+Violation <|-- UserEndViolation
+Violation <|-- AuthorityEndViolation
+
+class User{
+    String fiscalCode
+}
+
+class Operator{
+    String id
+}
+
+class Location {
+    double latitude
+    double longitude
+    String address
+}
+
+class Violation {
+    Datetime timestamp
+    String violationType
+}
+
+class AuthorityEndViolation {
+    String status
+    String priority
+}
+
+
+Authority "1" -- "*" AuthorityEndViolation
+User "1" -- "*" UserEndViolation
+Violation --> "1" Location : taken where
+Operator "*" -- "1" Authority
+
+@enduml

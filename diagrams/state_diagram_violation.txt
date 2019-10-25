@@ -1,0 +1,25 @@
+@startuml
+
+left to right direction
+
+[*] --> CreateViolation : newViolation
+CreateViolation --> PictureTaken : takePicture
+PictureTaken --> ElaboratedResults : runAlgorithms
+ElaboratedResults --> UserReview : showToUser
+UserReview --> ModifiedResults : modifyData
+ModifiedResults --> FinalViolation : insertType
+FinalViolation --> ViolationSent : accept
+FinalViolation --> ViolationCanceled : cancel
+
+ViolationSent --> [*]
+ViolationCanceled --> [*]
+
+PictureTaken --> CreateViolation : algorithmsFail
+PictureTaken --> CreateViolation : discardPicture
+UserReview --> CreateViolation : discard
+
+CreateViolation --> [*] : cancelViolation
+
+
+
+@enduml
