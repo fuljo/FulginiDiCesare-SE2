@@ -1,24 +1,15 @@
 @startuml
-
 left to right direction
 
-[*] --> CreateViolation : newViolation
-CreateViolation --> PictureTaken : takePicture
-PictureTaken --> ElaboratedResults : runAlgorithms
-ElaboratedResults --> UserReview : showToUser
-UserReview --> ModifiedResults : modifyData
-ModifiedResults --> FinalViolation : insertType
-FinalViolation --> ViolationSent : accept
-FinalViolation --> ViolationCanceled : cancel
+[*] --> EmptyViolation
+EmptyViolation --> IncompleteViolation : user:takePicture
+IncompleteViolation --> CompleteViolation : user:fillData
 
-ViolationSent --> [*]
-ViolationCanceled --> [*]
+CompleteViolation --> ConfirmedViolation
+CompleteViolation --> DiscardedViolation
 
-PictureTaken --> CreateViolation : algorithmsFail
-PictureTaken --> CreateViolation : discardPicture
-UserReview --> CreateViolation : discard
-
-CreateViolation --> [*] : cancelViolation
+ConfirmedViolation --> [*]
+DiscardedViolation --> [*]
 
 
 

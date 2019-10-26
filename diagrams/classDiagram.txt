@@ -30,6 +30,7 @@ class AuthorityEndViolation {
 Authority "1" -- "*" AuthorityEndViolation
 User "1" -- "*" UserEndViolation
 Violation --> "1" Location : taken where
+Violation "1" -- "1" Picture
 Operator "*" -- "1" Authority
 
 @enduml
