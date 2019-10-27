@@ -1,46 +1,55 @@
 \section{Scope}
-The SafeStreets application is offered to willing citizens of a city who want 
-to contribute to their city’s public order. Meanwhile the service is also 
-designed for authorities that want to improve their control over traffic 
-violations. 
-The service can be seen as an intermediary between the two parts: citizens 
-and authorities.
+SafeStreets is a service that can be offered and managed by authorities
+to willing citizens who want to contribute to their city’s public order.
+In this way the authorities can improve their control over traffic violations.
 
-%TODO: put a disegnino
+The service is supposed to be provided in Italy, so we assume that each
+municipality has one reference authority (e.g.\ police department) that is
+responsible for handling traffic violations in that area.
+The authority may activate the service or not in its area.
+
+% TODO: put a disegnino
 
 First of all, the user must register to the service by providing his/her 
-fiscal code and a password of his choice. The S2B will be deployed in 
-Italy, so we can safely assume that the fiscal code can identify in a 
-unique way every user.
+fiscal code, a username and a password of his choice.
+By requiring the fiscal code to be unique for each user, we can avoid
+duplicate accounts for the same citizen.
 
-The user after opening the application will be allowed to submit a picture 
-with all the related data such as date, time, position, generic notes.
-
-When the user detects a violation, it can open the software on his mobile 
+When the user detects a violation, he can open the software on his mobile 
 device and take a picture. The system will elaborate the picture in order to 
 auto-detect the licence plate number. Furthermore, the app will get from the 
-device the date, time and GPS position. The auto collected data will be shown 
+device the date, time and GPS position. The auto-collected data will be shown 
 to the user who can correct it before being sent to the authority.
 The only data the user must manually insert is the infraction type, which 
-will be chosen from a finite list of possible violations.
+will be chosen from a finite list of possible types.
 This process will be designed to be as smooth as possible, to offer a clean 
 user experience.
 
-Once the violation has been sent, an operator of the authority will review
-it and then decide whether to accept it. The operator may discard the
-violation when it contains erroneous or incomplete data. For example the
-photo may simply not show a violation, or it may happen that the licence
-plate in the picture is partially unreadable and the number inserted by
-the user is likely to be wrong.
+From the authority point of view, the violation reports are handled by
+an operator, who is identified by an username (must be unique) and
+a password.
+The operator will review the violation and then decide whether to accept it.
+He may discard the violation when it contains erroneous or incomplete data.
+For example the photo may simply not show a violation, or it may happen that
+the licence plate in the picture is partially unreadable and the number
+inserted by the user is likely to be wrong.
 
-After accepting the violation, the operator will be able to assign it a level
-of priority, so that the authority will be able to efficiently schedule the
-intervention. Scheduling the intervention, by the way, is outside the scope
-of the S2B.
+After accepting the violation, the authority might schedule intervention
+on the ground (e.g.\ remove the vehicle from the road).
+Scheduling the intervention, however, is out of the scope of the software
+to be.
 
 The data collected is of course persistent as the S2B will offer various
 statistics to citizens and authorities.
-The authorities will be able to view statistics which aggregate violations
-of the same type, same location, same time, or same vehicle.
-On the other hand citizens will be able to view statistics regarding only 
-the location, time and infraction type.
+The authorities will be able to view statistics on the number and types of
+violations.
+The statistics can be filtered by violation type, location, date/time and
+vehicle.
+Citizens will also be able to view statistics, but in order to keep privacy
+they won't be able to see the vehicles involved.
+
+For the data about accidents, we assume that a municipality may provide it
+or not. Therefore the function which suggets actions to prevent accidents
+can only be offered in municipalities that provide such data.
+The data is supposed to contain the location and accident type for each accident.
+We also assume that there are a finite pre-defined set of accident types.
