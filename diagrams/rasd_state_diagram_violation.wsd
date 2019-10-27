@@ -1,0 +1,20 @@
+@startuml rasd_state_diagram_violation
+left to right direction
+hide empty description
+
+' User side
+[*] --> Empty
+Empty -> Incomplete : user:takePicture
+Incomplete -> Complete : user:fillData
+
+Complete --> Pending : user:send
+Complete --> [*] : user:cancel
+
+' Authority side
+Pending --> Accepted : authority:accept
+Pending --> Discarded : authority:discard
+
+Accepted --> [*]
+Discarded --> [*]
+
+@enduml

@@ -35,7 +35,7 @@ makes no sense for users to report violations in that area.
 Each authority might have multiple operators which are allowed to handle the
 violations reported in its competence area.
 
-% Insert class diagram
+% Class diagram
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{rasd_class_diagram}
@@ -43,24 +43,13 @@ violations reported in its competence area.
     \label{fig:classDiagram}
 \end{figure}
 
-Figure \ref{fig:violationDiagram} shows the evolution of a Violation, from when the user takes the picture, to the final user review.
+Figure \ref{fig:violationDiagram} shows the evolution of a Violation, from when
+the user takes the picture, to the final review from the authority operator.
 
-% Insert state_diagram_violation
+% Violation state diagram
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{../diagrams/state_diagram_violation.png}
+    \includegraphics[width=\linewidth]{rasd_state_diagram_violation}
     \caption{Violation state diagram}
     \label{fig:violationDiagram}
-\end{figure}
-
-Notice that depending on the quality of the picture taken, the OCR algorithm may fail, in this case the user is asked to take another, possibly better, picture. 
-
-Figure \ref{fig:acceptViolationDiagram} shows what happens when an operator takes care of a Violation that is received by the authority. As explained before, firstly it has to accept or discard the violation, then in case of acceptance assign it a level of priority so that another department can better schedule the intervention
-
-% Insert state_diagram_accept_violation
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{../diagrams/state_diagram_accept_violation.png}
-    \caption{Accept Violation state diagram}
-    \label{fig:acceptViolationDiagram}
 \end{figure}
