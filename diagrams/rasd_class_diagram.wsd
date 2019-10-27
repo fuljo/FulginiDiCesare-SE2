@@ -1,0 +1,63 @@
+@startuml rasd_class_diagram
+
+abstract class Person {
+    String username
+    String password
+}
+
+class User {
+    String fiscalCode
+}
+
+User "1" ..> "0..*" Violation : reports
+
+class Operator
+
+Operator "1..*" -- "1" Authority : works for >
+
+class Authority {
+    String name
+}
+
+Authority "0..1" -- "1..*" Municipality : competent for >
+
+Person <|-- User
+Person <|-- Operator
+
+class Vehicle {
+    String licencePlate
+}
+
+Vehicle "1..*" -- "1..*" Violation : commits > 
+
+class Violation {
+    Datetime timestamp
+    Enum type
+    Enum status
+}
+
+Violation "0..*" --> "1" Location : occurred at
+Violation "1" --> "1" Picture : shown in
+
+class Location {
+    double latitude
+    double longitude
+    String address
+}
+
+Location "0..*" --> "1" Municipality : belongs to
+
+class Municipality
+
+class Accident {
+    Enum type
+}
+
+Accident "0..*" --> "1" Location : occurred at
+
+class SuggestedAction
+
+SuggestedAction "0..*" --> "1..*" Violation : based on
+SuggestedAction "0..*" --> "1..*" Accident : based on
+
+@enduml
