@@ -1,0 +1,34 @@
+% Here we define the macros for the goals, requirements and domain
+% assumptions that will be printed elsewhere
+
+%------------------------------------------------
+%	Goals
+%------------------------------------------------
+\DefineRule{G1}{The system must allow users to notify authorities of parking
+violations, by uploading pictures of the violation together with metadata
+(date, time, position, infraction type, licence plate of the vehicle)}
+
+\DefineRule{G2}{The system must be able to extract the license plate number
+from the photos uploaded by the users}
+
+\DefineRule{G3}{The system must persistently store the violations
+uploaded by the users, while keeping the uploader anonymous}
+
+\DefineRule{G4}{The authorithy must be able to visualize and possibly delete 
+the single violations stored by the system}
+
+\DefineRule{G5}{The authorithy must be able to accept or refuse a violation
+when it is reported}
+
+\DefineRule{G6}{The authorithy must be able to visualize violation statistics
+based on their location, time, type or responsible vehicle}
+
+\DefineRule{G7}{The user must be able to visualize anonymized violation
+statistics only based on their location, time and type}
+
+\DefineRule{G8}{The system must be able to retrieve data about accidents
+from the municipalities that offer it (through an API)}
+
+\DefineRule{G9}{The system must be able to determine unsafe areas by
+matching data about violations and data about accidents, and also
+to suggest improvements to help preventing accidents}

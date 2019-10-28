@@ -107,3 +107,15 @@
   citecolor=accent
 }
 
+
+%------------------------------------------------
+%	Rules (goals, requirements, etc.)
+%------------------------------------------------
+
+\newcommand{\DefineRule}[2]{%
+  \expandafter\newcommand\csname rule-#1\endcsname{#2}%
+}
+% Print just the body of the rule
+\newcommand{\Rule}[1]{\csname rule-#1\endcsname}
+% To be used inside description env.
+\newcommand{\RuleItem}[1]{\item[#1] \csname rule-#1\endcsname}
