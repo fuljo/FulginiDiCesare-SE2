@@ -55,7 +55,9 @@ class Accident {
 
 Accident "0..*" --> "1" Location : occurred at
 
-class SuggestedAction
+class SuggestedAction{
+    Enum status
+}
 
 SuggestedAction "0..*" --> "1..*" Violation : based on
 SuggestedAction "0..*" --> "1..*" Accident : based on

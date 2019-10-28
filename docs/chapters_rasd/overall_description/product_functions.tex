@@ -2,5 +2,47 @@
 In this section the major functions of the S2B will be summarized.
 
 \subsection{Report a Violation}
-This is the core function of the system. When a user spots a violation, it can open the app, log-in using username and password and rapidly take a picture.
-The system will now run an OCR algorithm to find the biggest licence plate on the picture and extract the number. Other information are required to complete the violation report: date, time and position. They can be collected through the standard tools of the mobile host device. If one or more of these information are wrong or incomplete, then the user can correct the wrong ones. Finally the user must select the right Violation Type. When a Violation report has been completed, the user can choose wheter to confirm it so that it will be sent.
+This is the core function of the system. When a user spots a violation, it can
+open the app, log-in using username and password and rapidly take a picture. The
+system will now run an OCR algorithm to find the biggest licence plate on the
+picture and extract the number. Other information are required to complete the
+violation report: date, time and position. They can be collected through the
+standard tools of the mobile host device. If one or more of these information
+are wrong or incomplete, then the user can correct the wrong ones. Finally the
+user must select the right Violation Type. When a Violation report has been
+completed, the user can choose if he wants to send it or to discard it.
+
+Violations are automatically routed to the correct authority based on the
+municipality they occurred in.
+
+An authority operator can see all the violations the authority is responsible
+for and review them. In particular he can accept the violation, or in case it is
+considered inappropiate or simply erroneous, discard it.
+
+\subsection{View Statistics}
+Both users and operators can ask the system for statistics about the number and
+type of violations.
+Athorities and users can see different statistics, for privacy reasons a common
+user cannot see data about the specific vehicles.
+Some examples of available statistics are:
+\begin{itemize}
+    \item Number of violations of a certain type
+    \item Number of violations divided by area
+    \item Number of violations divided by time of the day
+    \item Number of violations divided by vehicle (\emph{authority only})
+\end{itemize}
+Crossed data statistics are also available (e.g.\ most popular violation type
+for each area).
+
+\subsection{SmartSuggestions}
+If the municipality allows SafeStreets to collect their data about accidents,
+the S2B will cross this data with the violations occurred in that area.
+The system will try to determine a \emph{cause-effect} relation between
+violations and accidents and finally suggest a smart suggestion to prevent that
+accident from occurring again.
+
+New suggestions will be displayed to the operator as they become available.
+Furthermore the operator can mark the suggestions as carried out.
+Since then the system will monitor the number of accidents of that type in that
+area to determine if the suggestion was effective or not, and possibly provide
+better suggestions in the future.
