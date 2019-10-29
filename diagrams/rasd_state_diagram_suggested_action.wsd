@@ -1,0 +1,17 @@
+@startuml rasd_state_diagram_suggested_action
+left to right direction
+hide empty description
+
+' operator side
+[*] -> newSuggestedAction
+newSuggestedAction -> carriedOut : operator:markAsCarriedOut
+
+' SmartSuggestions autodetect
+carriedOut --> useful : smartSuggestions:detectUseful
+carriedOut --> useless : smartSuggestions:detectUseless
+
+useful --> [*]
+useless --> [*]
+
+
+@enduml
