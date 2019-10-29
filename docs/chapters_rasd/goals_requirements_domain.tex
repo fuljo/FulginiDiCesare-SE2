@@ -32,3 +32,28 @@ from the municipalities that offer it (through an API)}
 \DefineRule{G9}{The system must be able to determine unsafe areas by
 matching data about violations and data about accidents, and also
 to suggest improvements to help preventing accidents}
+
+%------------------------------------------------
+%	Domain assumptions
+%------------------------------------------------
+\DefineRule{D1}{A citizen can be uniquely identified by his fiscal code}
+
+\DefineRule{D2}{The users' devices provide date and time with a precision of
+1 minute or less, with resepect to UTC}
+
+\DefineRule{D3}{The users' devices provide GPS location with a precison of
+10 meters or less}
+
+\DefineRule{D4}{Any vehicle that may commit a violation can be uniquely
+identified by its licence plate number}
+
+\DefineRule{D5}{Each location where the service can be used is associated
+to exactly one municipality}
+
+\DefineRule{D6}{Each municipality has exactly one authorithy that enforces
+traffic rules in its territory}
+
+\DefineRule{D7}{Authorities have demonstrated that the municipalities for
+which they requested the violations are under their jurisdiction}
+
+\DefineRule{D8}{The internet connection works without problems}
