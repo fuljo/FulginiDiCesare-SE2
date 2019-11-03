@@ -12,6 +12,7 @@
 \RequirePackage[backend=biber, style=numeric]{biblatex}
 
 \RequirePackage{graphicx}
+\RequirePackage[skins,breakable]{tcolorbox}
 
 \RequirePackage{listings}
 \RequirePackage{longtable}
@@ -117,6 +118,20 @@
   citecolor=accent
 }
 
+%------------------------------------------------
+%	Color boxes
+%------------------------------------------------
+\definecolor{pumlbg}{rgb}{1, 1, 0.81}
+\definecolor{pumlacc}{rgb}{0.66,0,0.21}
+% Use case sheet
+\newtcolorbox{usecase}[1]{%
+  breakable, skin=bicolor,%
+  fontupper=\sffamily,%
+  fonttitle=\bfseries\sffamily, title=Use case #1,%
+  colback=pumlbg,%
+  colbacklower=white,%
+  colframe=pumlacc%
+}
 
 %------------------------------------------------
 %	Rules (goals, requirements, etc.)
