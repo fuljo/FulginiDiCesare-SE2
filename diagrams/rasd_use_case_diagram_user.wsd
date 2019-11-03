@@ -1,0 +1,19 @@
+@startuml rasd_use_case_diagram_user
+left to right direction
+skinparam Shadowing false
+
+:User: <<Human>>
+:SafeStreets: <<Application>>
+
+rectangle SafeStreets {
+    (Register)
+    (Report violation)  <|-- (Login) : <<include>>
+    (View statistics)   <|-- (Login) : <<include>>
+    (Login)
+}
+
+:User: --> (Register) : <<initiate>>
+:User: --> (Report violation) : <<initiate>>
+:User: --> (View statistics) : <<initiate>>
+
+@enduml
