@@ -1,0 +1,34 @@
+\begin{usecase}{2.1}
+    \textbf{Name:} Review Violations \\
+    \textbf{Actors:} Authority \\
+    \textbf{Entry Conditions:}
+    \begin{enumerate}
+        \item The authority operator has opened the application on the device.
+        \item The authority operator has already logged in.
+        \item The device is connected to the internet.
+    \end{enumerate}
+    \textbf{Event flow:}
+    \begin{enumerate}
+        \item The authority operator clicks on the \emph{Violations} button.
+        \item The authority operator is shown all the Violation Reports send by
+        the users.
+        \item The authority operator selects the Violation Report he wants to
+        review.
+        \item The system shows the options available for the Report: Accept or
+        Discard.
+        \item The authority operator selects the action he wants to take.
+        \item The system elaborates the action and sends the operator a
+        confirmation message.
+    \end{enumerate}
+    \textbf{Exit conditions:} The authority operator selects an action to be
+    taken on the specific Violation Report \\
+    \textbf{Exceptions:}
+    \begin{enumerate}
+        \item \textbf{There are no violation report to review:} the authority
+        operator is shown a message stating that all the reports has been
+        reviewed.
+    \end{enumerate}
+    \tcblower
+    \centering
+    \includegraphics[width=.7\linewidth]{rasd_sequence_diagram_uc_2_1}
+\end{usecase}{2.1}

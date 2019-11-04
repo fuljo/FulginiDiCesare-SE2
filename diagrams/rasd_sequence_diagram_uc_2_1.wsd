@@ -1,0 +1,20 @@
+@startuml rasd_sequence_diagram_uc_2_1
+skinparam Shadowing false
+
+actor Authority as A
+participant SafeStreets as SS
+
+A -> SS : requestViolationsReports
+SS -> SS : checkViolationReports
+alt some reports are available to be reviewed
+SS --> A : violationReportList
+A -> SS : selectedViolation
+SS --> A : availableActions
+A -> SS : selectedAction
+SS -> SS : elaborateAction
+SS --> A : actionSuccess
+else
+SS --> A : violationReportsAlreadyReviewed
+end
+
+@enduml

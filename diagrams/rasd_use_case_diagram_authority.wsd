@@ -1,0 +1,19 @@
+@startuml rasd_use_case_diagram_authority
+left to right direction
+skinparam Shadowing false
+
+:Authority: <<Human>>
+:SafeStreets: <<Application>>
+
+rectangle SafeStreets{
+    (Login)
+    (View Statistics) <|-- (Login) : <<include>>
+    (Review Violations) <|-- (Login) : <<include>>
+    (View Suggestions) <|-- (Login) : <<include>>
+}
+
+:Authority: --> (View Statistics) : <<initiate>>
+:Authority: --> (Review Violations) : <<initiate>>
+:Authority: --> (View Suggestions): <<initiate>>
+
+@enduml
