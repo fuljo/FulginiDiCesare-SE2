@@ -1,0 +1,33 @@
+\begin{usecase}{1.3}
+    \textbf{Name: }Report Violation \\
+    \textbf{Actors: } User \\
+    \textbf{Entry Conditions:}
+    \begin{enumerate}
+        \item The user has opened the application on his device.
+        \item The user has successfully logged in.
+        \item The device is connected to the internet.
+    \end{enumerate}
+    \textbf{Event flow:}
+    \begin{enumerate}
+        \item The user taps on the \emph{Report violation} button.
+        \item The application accesses the device's camera.
+        \item The user takes a picture of the violation.
+        \item The system gathers all the data it can and automatically fills the
+        corresponding fields.
+        \item The user fills the remaining data fields.
+        \item The user taps on the \emph{Send report} button.
+        \item The system receives the Violation report, checks data and shows
+        the user a confirmation message.
+    \end{enumerate}
+    \textbf{Exit conditions: } The user correctly sends the Violation report \\
+    \textbf{Exceptions: }
+    \begin{enumerate}
+        \item \textbf{The user didn't fill all the fields:} he's prompted to
+        fill all the fields before tapping \emph{Send report} again.
+        \item \textbf{The inserted data are in an invalid format:} a warning is
+        shown and the data must be filled again before sending the report.
+    \end{enumerate}
+    \tcblower
+    \centering
+    \includegraphics[width=.7\linewidth]{rasd_sequence_diagram_uc_1_3}
+\end{usecase}

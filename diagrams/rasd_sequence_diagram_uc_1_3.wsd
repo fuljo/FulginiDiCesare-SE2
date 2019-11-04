@@ -1,0 +1,17 @@
+@startuml rasd_sequence_diagram_uc_1_3
+skinparam Shadowing false
+
+actor User as U
+participant SafeStreets as SS
+
+U -> SS : sendViolationReport
+SS -> SS : checkData
+
+alt incorrect data format
+SS --> U : showWarning
+else 
+SS --> U : violationReportSuccessful
+end
+
+
+@enduml

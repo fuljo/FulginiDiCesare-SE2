@@ -1,0 +1,30 @@
+\begin{usecase}{1.4}
+    \textbf{Name: }Report Violation \\
+    \textbf{Actors: } User \\
+    \textbf{Entry Conditions:}
+    \begin{enumerate}
+        \item The user has opened the application on his device.
+        \item The user has succesfully logged in.
+        \item The device is connected to the internet.
+    \end{enumerate}
+    \textbf{Event flow:}
+    \begin{enumerate}
+        \item The user taps on the \emph{View statistics} button.
+        \item The user is shown some options that describe the various
+        statistics available.
+        \item The system receives the request and answers with the available
+        statistics type.
+        \item The user selects one of the available statistics type.
+        \item The system receives the request and answers with the statistics
+        data, which are shown to the user.
+    \end{enumerate}
+    \textbf{Exit conditions:} The user visualizes the statistics. \\
+    \textbf{Exceptions:}
+    \begin{enumerate}
+        \item \textbf{There are no statistics to be shown:} a warning is shown
+        to the user.
+    \end{enumerate}
+    \tcblower
+    \centering
+    \includegraphics[width=.7\linewidth]{rasd_sequence_diagram_uc_1_4}
+\end{usecase}

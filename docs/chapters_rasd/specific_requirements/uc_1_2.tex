@@ -1,0 +1,33 @@
+\begin{usecase}{1.2}
+\label{uc:1.2}
+\textbf{Name:} Login\\
+\textbf{Actors:} User\\
+\textbf{Entry conditions:}
+\begin{enumerate}
+    \item The user has opened the application on his device.
+    \item The user hasn't already logged in.
+    \item The device is connected to the internet.    
+\end{enumerate}
+\textbf{Event flow:}
+\begin{enumerate}
+    \item The user taps on the \emph{Login} button.
+    \item The user is presented with a form in which he inserts his username and
+    password
+    \item The user taps on the \emph{Login} button to send the login request.
+    \item The system receives the login request and checks the inserted
+    data.
+    \item The user is now logged in and lands on the \emph{Main Menu} page.
+\end{enumerate}
+\textbf{Exit conditions: } The user is logged in and he's able to access all the
+application services. \\
+\textbf{Exceptions:}
+\begin{enumerate}
+    \item \textbf{The combination of username and password does not exist:} the
+    user is shown an error pop-up and he's invited to insert the data again.
+    \item \textbf{The user didn't fill all the fields:} he's prompted to fill
+    all the fields before tapping the \emph{Login} button again
+\end{enumerate}
+\tcblower
+\centering
+\includegraphics[width=.7\linewidth]{rasd_sequence_diagram_uc_1_2}
+\end{usecase}

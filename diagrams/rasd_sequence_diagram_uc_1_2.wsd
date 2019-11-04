@@ -1,0 +1,16 @@
+@startuml rasd_sequence_diagram_uc_1_2
+skinparam Shadowing false
+
+actor User as U
+participant SafeStreets as SS
+
+U -> SS : loginRequest
+SS -> SS : checkInsertedData
+
+alt username and password does not match
+SS --> U : showError
+else 
+SS --> U : loginSuccessful
+end
+
+@enduml
