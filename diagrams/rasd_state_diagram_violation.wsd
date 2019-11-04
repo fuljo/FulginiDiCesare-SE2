@@ -1,5 +1,6 @@
 @startuml rasd_state_diagram_violation
 left to right direction
+skinparam Shadowing false
 hide empty description
 
 ' User side

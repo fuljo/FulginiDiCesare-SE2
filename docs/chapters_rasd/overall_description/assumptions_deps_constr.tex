@@ -1,4 +1,5 @@
 \section{Assumptions, dependencies and constraints}
+\label{sec:ass_deps_constr}
 
 Here we present the domain assumptions that must hold in order for the system
 to work properly.
@@ -24,13 +25,13 @@ computers at the authorities' headquarters and from the mobile devices of the
 on-field agents. In both cases a stable internet connection is required.
 
 \minisec{Data about accidents}
-In case the \emph{SmartSuggestions} function is to be activated, the autority
-must also provide access to the data about accidents in the municipalitie(s)
+In case the \emph{SmartSuggestions} function is to be activated, the authority
+must also provide access to the data about accidents in the municipality(ies)
 under its jurisdiction.
 The assumption is that the data can be retrieved in a structured or
 semi-structured format (e.g.\ JSON, XML) through a REST API.
 The API must allow to retrieve the data about the accidents of a single
-municipality, indicating the location (e.g.\ latitute, longitude, address) and
+municipality, indicating the location (e.g.\ latitude, longitude, address) and
 type of each accident (within a finite set of pre-defined types).
 Furthermore it must allow to retrieve the violations that occurred after a
 certain date, in order for SafeStreets to perform incremental updates.
@@ -38,7 +39,7 @@ certain date, in order for SafeStreets to perform incremental updates.
 \minisec{Privacy constraints}
 According to Article 4 of the General Data Protection Regulation
 \cite{gdpr:article-4-definitions} both the fiscal code and the licence plate
-nunber are considered \emph{personal data} as they can be directly or indirectly
+number are considered \emph{personal data} as they can be directly or indirectly
 associated to a person. Therefore our system must comply to the GDPR, and in
 particular to the national law DPR 15/2018 \cite{gu:dpr-15/2018} that regulates
 the treatment of personal data by police forces.

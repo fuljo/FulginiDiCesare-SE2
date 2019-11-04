@@ -1,0 +1,37 @@
+\begin{usecase}{1.1}
+\label{uc:1.1}
+\textbf{Name:} Register\\
+\textbf{Actors:} User\\
+\textbf{Entry conditions:}
+\begin{enumerate}
+    \item The user has opened the application on his device
+    (he's in the \emph{landing page}).
+    \item The user hasn't already logged in.
+    \item The device is connected to the internet.
+\end{enumerate}
+\textbf{Event flow:}
+\begin{enumerate}
+    \item The user taps on the \emph{Register} button.
+    \item The user is presented with a form, in which he inserts his
+    fiscal code, username and desired password.
+    \item The user taps on the \emph{Register} button to request the
+    registration.
+    \item The system receives the registration and stores the information
+    entered by the user.
+    \item The user receives a confirmation in the app that the registration
+    terminated successfully.
+\end{enumerate}
+\textbf{Exit conditions:} The user is registered to the system and is now able
+to log in.\\
+\textbf{Exceptions:}
+\begin{enumerate}
+    \item\textbf{The fiscal code or the username already belongs to another user:}
+    a warning is shown and the registration process is aborted.
+    \item\textbf{The user inserted an invalid fiscal code:} a warning is shown.
+    \item\textbf{The user didn't fill all the fields:} he's prompted to
+    fill all the fields before tapping \emph{Register} again.
+\end{enumerate}
+\tcblower
+\centering
+\includegraphics[width=.7\linewidth]{rasd_sequence_diagram_uc_1_1}
+\end{usecase}

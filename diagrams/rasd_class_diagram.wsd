@@ -1,4 +1,5 @@
 @startuml rasd_class_diagram
+skinparam Shadowing false
 
 abstract class Person {
     String username

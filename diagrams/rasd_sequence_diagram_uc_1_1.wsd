@@ -1,0 +1,22 @@
+@startuml rasd_sequence_diagram_uc_1_1
+skinparam Shadowing false
+
+actor User as U
+participant SafeStreets as SS
+
+U -> SS : registrationRequest
+
+SS -> SS : checkFiscalCodeFormat
+alt invalid fiscal code format
+SS --> U : showWarning
+else
+SS -> SS : checkUniqueIdentifiers
+alt username or fiscal code already in use
+SS --> U : showWarning
+else
+SS -> SS: registerUser
+SS --> U: successfulRegistration
+end
+end
+
+@enduml
