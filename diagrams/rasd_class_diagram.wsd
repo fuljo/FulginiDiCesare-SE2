@@ -52,6 +52,7 @@ class Municipality
 
 class Accident {
     Enum type
+    Datetime timestamp
 }
 
 Accident "0..*" --> "1" Location : occurred at
