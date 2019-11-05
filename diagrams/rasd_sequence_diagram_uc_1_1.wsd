@@ -4,17 +4,17 @@ skinparam Shadowing false
 actor User as U
 participant SafeStreets as SS
 
-U -> SS : registrationRequest
+U -> SS : registrationRequest(req)
 
-SS -> SS : checkFiscalCodeFormat
+SS -> SS : checkFiscalCodeFormat(fisc)
 alt invalid fiscal code format
 SS --> U : showWarning
 else
-SS -> SS : checkUniqueIdentifiers
+SS -> SS : checkUniqueIdentifiers(id)
 alt username or fiscal code already in use
 SS --> U : showWarning
 else
-SS -> SS: registerUser
+SS -> SS: registerUser(usr)
 SS --> U: successfulRegistration
 end
 end

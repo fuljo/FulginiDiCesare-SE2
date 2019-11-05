@@ -9,11 +9,11 @@ rectangle SafeStreets{
     (Login)
     (View Statistics) <|-- (Login) : <<include>>
     (Review Violations) <|-- (Login) : <<include>>
-    (View Suggestions) <|-- (Login) : <<include>>
+    (Manage Suggestions) <|-- (Login) : <<include>>
 }
 
 :Authority: --> (View Statistics) : <<initiate>>
 :Authority: --> (Review Violations) : <<initiate>>
-:Authority: --> (View Suggestions): <<initiate>>
+:Authority: --> (Manage Suggestions): <<initiate>>
 
 @enduml

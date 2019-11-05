@@ -4,8 +4,8 @@ skinparam Shadowing false
 actor User as U
 participant SafeStreets as SS
 
-U -> SS : loginRequest
-SS -> SS : checkInsertedData
+U -> SS : loginRequest(req)
+SS -> SS : checkInsertedData(req)
 
 alt username and password does not match
 SS --> U : showError

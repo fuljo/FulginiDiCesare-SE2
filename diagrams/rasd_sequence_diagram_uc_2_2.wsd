@@ -1,0 +1,17 @@
+@startuml rasd_sequence_diagram_uc_2_2
+skinparam Shadowing false
+
+actor Authority as A
+participant SafeStreets as SS
+
+A -> SS : requestAvailableStatistics()
+alt there are available statistics
+SS --> A : availableStatistics
+A -> SS : requestSpecificStatistics(stat)
+SS -> SS : elaborateData()
+SS --> A : statisticsData
+else
+SS --> A : noStatisticsAvailable
+end
+
+@enduml

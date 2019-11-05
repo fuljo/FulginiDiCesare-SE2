@@ -1,0 +1,23 @@
+@startuml rasd_sequence_diagram_uc_2_3
+skinparam Shadowing false
+
+actor Authority as A
+participant SafeStreets as SS
+
+A -> SS : requestAvailableSuggestions()
+alt there are available suggestions
+SS --> A : availableSuggestions
+A -> SS : requestDetails(sug)
+SS -> SS : collectData(sug)
+SS --> A : suggestionDetails
+alt suggestion carried out 
+A -> SS : markAsCarriedOut(sug)
+SS -> SS : elaborateSuggestion()
+SS --> A : confirmationMessage
+end
+else
+SS --> noSuggestionsAvailable
+end
+
+
+@enduml
