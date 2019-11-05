@@ -16,7 +16,7 @@ SS -> SS : elaborateSuggestion()
 SS --> A : confirmationMessage
 end
 else
-SS --> noSuggestionsAvailable
+SS --> A : noSuggestionsAvailable
 end
 
 
