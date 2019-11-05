@@ -1,5 +1,32 @@
 \section{Design Constraints}
 
 \subsection{Standards compliance}
+Here we set some standards for data representation, that match the ones of the
+planned development country: Italy.
+\begin{itemize}
+    \item Fiscal codes are represented as capitalized strings.
+    (e.g.\ \texttt{MRTMTT25D09F205Z})
+    \item Licence plates are represented as capitalized strings without spaces
+    (e.g.\ \texttt{AA123BB}).
+    \item Latitude and longitude are represented as decimal degrees (DD), which
+    is the most common representation format in geographical information systems
+    \cite{wiki:decimal-degrees}; in this way they can be conveniently stored as
+    floating point numbers.
+\end{itemize}
+
+Since the system deals with personal data, in the form of fiscal codes and
+licence plate numbers, it must comply to the General Data Protection Regulation,
+which applies to all individual citizens of the European Union (EU) and the
+European Economic Area (EEA).
+The treatment of data is done by police forces, so the system is also subject to
+the Italian law \cite[DPR-15/2018]{gu:dpr-15/2018} that regulates this matter.
 
 \subsection{Hardware limitations}
+As described in section \ref{sec:ass_deps_constr} the service is accessed
+from a smartphone app on the user side and from the web browser from the
+authority side. In both cases the Internet is used to communicate between
+the end user devices and the core of the system.
+
+The smartphones are therefore required to have an internet connection, a
+camera (needed to take pictures of violations) and a GPS sensor (to locate
+the violation).

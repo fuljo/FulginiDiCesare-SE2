@@ -1,1 +1,21 @@
 \section{Performance Requirements}
+The aim is to build a unique system that is able to serve an entire state.
+Since authorities can opt-in and out of the service, it is required for the
+system to be \emph{scalable} from tens of thousands of citizens to few millions
+and up to thousands of authorities. In particular the system must be able to
+react to a large number of simultaneous requests from both citizens and
+authorities.
+
+The response time for simple operations like reporting and reviewing violations
+should be less than 7 seconds; for more complex operations, like computing
+statistics over large data sets, the response time can also be longer (in the
+order of tens of seconds).
+However, since this is not a critical system, greater response times can also
+be tolerated, but only sporadically.
+
+Regarding the \emph{SmartSuggestions} feature, we cannot set a precise boundary
+on the time necessary to provide a suggested action, also because the involved
+computations might be very heavy. The aim is that the newly inserted data
+is processed within a week, but the exact time is left unspecified so
+processing can be efficiently scheduled, for example, when the overall load
+of the system is low.
