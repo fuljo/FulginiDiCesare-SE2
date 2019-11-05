@@ -8,7 +8,7 @@
 violations, by uploading pictures of the violation together with metadata
 (date, time, position, infraction type, licence plate of the vehicle)}
 
-\DefineRule{G2}{The system must be able to extract the license plate number
+\DefineRule{G2}{The system must be able to extract the licence plate number
 from the photos uploaded by the users}
 
 \DefineRule{G3}{The system must persistently store the violations
@@ -23,10 +23,7 @@ based on their location, time, type or responsible vehicle}
 \DefineRule{G6}{The user must be able to visualize anonymized violation
 statistics only based on their location, time and type}
 
-\DefineRule{G7}{The system must be able to retrieve data about accidents
-from the municipalities that offer it (through an API)}
-
-\DefineRule{G8}{The system must be able to determine unsafe areas by
+\DefineRule{G7}{The system must be able to determine unsafe areas by
 matching data about violations and data about accidents.
 It must then use such data to suggest actions that the authorithy can take
 to help preventing accidents}
@@ -55,3 +52,90 @@ traffic rules in its territory}
 which they requested the violations are under their jurisdiction}
 
 \DefineRule{D8}{The internet connection works without problems}
+
+%------------------------------------------------
+%	Requirements
+%------------------------------------------------
+
+\DefineRule{R1}{The system must allow citizens to register by providing
+fiscal code, username and password}
+
+\DefineRule{R2}{The system must not allow two people (user or operator) to have
+the same username. Also it must not allow two users (i.e.\ citizens) to have
+the same fiscal code}
+
+\DefineRule{R3}{The users must be able to upload photos from their mobile
+devices}
+
+\DefineRule{R4}{The system must be able to detect the date, time and location
+of the users' devices}
+
+\DefineRule{R5}{The system must allow the user to select the type of violation
+he wants to report from a finite list of types}
+
+\DefineRule{R6}{The system must allow the user to send violation reports}
+
+\DefineRule{R7}{The system must allow the user to edit each field of the report
+before sending it}
+
+\DefineRule{R8}{The system must be able to determine whether a plate number is
+valid (i.e.\ registered to the DMV) or not}
+
+\DefineRule{R9}{The system must be able to detect the biggest licence plate in
+a photo and read its number}
+
+\DefineRule{R10}{The system must be able to persistently store the violation
+reports, including their attached photos}
+
+\DefineRule{R11}{Violations with malformed data (invalid date/time, inexistent
+licence plate number, missing fields) must not be stored by the system}
+
+\DefineRule{R12}{When storing a violation report, the system mustn't save
+the user who uploaded it. In particular it must not store any identifier
+(e.g.\ fiscal code, username) that can provide such associtation}
+
+\DefineRule{R13}{The system must allow the operators of authorities to login
+with username and password}
+
+\DefineRule{R14}{The system must be able to determine the municipality in which
+a violation occurred based on the location saved in the report. It must be able
+to assign the violation to the authorithy responsible for that municipality,
+if any}
+
+\DefineRule{R15}{An operator must be able to access only the violation reports
+assigned to its authorithy. When a new report has been stored, he must be able
+to mark it as accepted or discarded}
+
+\DefineRule{R16}{Discarded reports are eventually deleted from the system}
+
+\DefineRule{R17}{The system must be able to filter and aggregate violation
+reports by location, date, time, type and licence plate number}
+
+\DefineRule{R18}{The system must be able to compute statistics based on the
+number of violations}
+
+\DefineRule{R19}{The system must allow an authority operator to view statistics,
+including filtering for the licence plate of the vehicles}
+
+\DefineRule{R20}{The system must allow an user to view statistics which do not
+include the licence plate of the vehicles involved}
+
+\DefineRule{R21}{The system must be able to retrieve data about accidents
+from municipalities that provide it (through an API)}
+
+\DefineRule{R22}{The system must be able to determine if there is a causal
+relation between accidents and violations based on their location, types and
+timestamps}
+
+\DefineRule{R23}{The system must be able to determine possible actions that
+can be taken by the authorithy to reduce the detected accidents, also using
+the detected causal relations}
+
+\DefineRule{R24}{An authorithy operator must be able to view the suggested
+actions for the zone in which the authorithy operates. He must also be able to
+mark an action as \emph{carried out}, meaning that it has actually been executed}
+
+\DefineRule{R25}{The system must be able to detect if a
+\emph{carried out action} has been useful or not (i.e.\ the number of accidents
+and/or violations that it was supposed to prevent has dropped or not) and
+possibly provide better suggestions based on this knowledge}
