@@ -4,12 +4,32 @@ skinparam Shadowing false
 actor User as U
 participant SafeStreets as SS
 
-U -> SS : sendViolationReport
-SS -> SS : checkData
+U -> SS : sendPicture(pic)
+SS -> SS : lp = extractLicencePlate(pic)
+
+alt licence plate detected
+SS -> SS : setLicencePlate(lp)
+else
+U -> SS : setLicencePlate(lp)
+note left
+    the user
+    manually sets
+    the licence plate
+end note
+end
+
+SS -> SS : detectTimestamp()
+SS -> SS : detectUserLocation()
+
+U -> SS : selectViolationType(type)
+U -> SS : sendViolationReport(rep)
+
+SS -> SS : checkData(rep)
 
 alt incorrect data format
-SS --> U : showWarning
-else 
+SS --> U : warning
+else
+SS -> SS : saveReport(rep)
 SS --> U : violationReportSuccessful
 end
 

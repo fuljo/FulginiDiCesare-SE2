@@ -12,16 +12,21 @@
         \item The user taps on the \emph{Report violation} button.
         \item The application accesses the device's camera.
         \item The user takes a picture of the violation.
-        \item The system gathers all the data it can and automatically fills the
-        corresponding fields.
-        \item The user fills the remaining data fields.
+        \item The system extracts the licence plate number from the picture.
+        \item The application automatically detects the current date, time
+        and location of the device and fills the corresponding fields.
+        \item The user selects the type of violation from a finite list and
+        can also correct other fields.
         \item The user taps on the \emph{Send report} button.
-        \item The system receives the Violation report, checks data and shows
-        the user a confirmation message.
+        \item The system receives the Violation report, checks data correctness
+        and shows the user a confirmation message.
     \end{enumerate}
     \textbf{Exit conditions: } The user correctly sends the Violation report \\
     \textbf{Exceptions: }
     \begin{enumerate}
+        \item \textbf{The system hasn't been able to automatically detect the
+        licence plate number from the photo:} the number will be manually
+        inserted by the user. This doesn't prevent the procedure to complete.
         \item \textbf{The user didn't fill all the fields:} he's prompted to
         fill all the fields before tapping \emph{Send report} again.
         \item \textbf{The inserted data are in an invalid format:} a warning is
