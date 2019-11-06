@@ -1,11 +1,49 @@
 \section{Software System Attributes}
+Here we provide a brief description of the desired attributes that the software
+to be should have.
 
 \subsection{Reliability}
+The system should be able to run continuously without any interruptions.
+To achieve this it should follow some basic principles of fault tolerance;
+the preferred approach is active replications, since it also provides
+scalability.
 
 \subsection{Availability}
+The system must be perceived as stable and must be there when users need it.
+However it is not a life-critical system, so a limited downtime (e.g.\ for
+maintenance) can be accepted. To sum up, the system must be available 99\% of
+the time.
 
 \subsection{Security}
+Since the system will deal with personal data, security both in data storage
+and in communication are key aspects.
+
+All the \emph{communication} between the clients and servers, and also between
+different data centers, must provide confidentiality, authentication and
+integrity; this can be achieved, for example, by using the Transport Layer
+Security protocol (TLS).
+
+The \emph{data} stored by the system must be protected against unauthorized
+access and passwords must not be stored as plaintext; a suggestion is to use
+hashes and salt.
 
 \subsection{Maintainability}
+Another key aspect of the system is maintainability. In particular the design
+must provide the flexibility to add new features on top of the existing ones.
+It must also be easy to adapt the system to operate in other countries,
+that may have different formats for personal and vehicle identifiers.
 
 \subsection{Portability}
+The system must provide a high level of compatibility with different devices
+and technologies both on the client and the server sides.
+
+On the \emph{client side} this means that the mobile application can run on the
+major mobile operating systems (iOS and Android), without particular
+restrictions on the OS version or specific device models. For the web part, this
+means that the website must work in all the major web browsers.
+
+On the \emph{server side} this means that the whole system must be broken up
+into loosely coupled components that interact between themselves and with the
+clients. The components should also be easy to substitute or move to a different
+location (e.g.\ hosting provider).
+These practices also increase the maintainability and scalability of the system.
