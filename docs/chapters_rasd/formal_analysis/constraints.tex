@@ -1,0 +1,82 @@
+\section{Constraints}
+Here are defined all the constraints needed to keep the model coherent. The
+majority of these are called \emph{noFoster[...]} and the name self describes
+what the constraint does: we do no want usernames or passwords without their own
+owner, same for pictures without their own violation, license plate without vehicle
+and so on.
+
+The second set of constraint defines the uniqueness of some entities, for
+example there cannot be two different people with the same fiscal code or two
+vehicles with the same license plate. These are constraints that are needed due
+to real world limitations, but similar constraints are defined for entities not
+present in the real world, for example \emph{Username}, which has to be unique
+only due to our model design.
+
+\begin{alloy}
+    fact noFosterFiscalCode {
+        all fisc : FiscalCode | fisc in User.id
+    }
+
+    fact noFosterPassword {
+        all p : Password | p in Person.password
+    }
+
+    fact noFosterUsername {
+        all u : Username | u in Person.username
+    }
+
+    fact noFosterOperator {
+        all op : Operator | op in Authority.employs
+    }
+
+    fact noFosterMunicipality {
+        all mun : Municipality | mun in Authority.zone
+    }
+
+    fact noFosterVehicles {
+        all v : Vehicle | v in Violation.vehicle
+    }
+
+    fact noFosterLocation {
+        all loc : Location | loc in Violation.where or loc in Accident.crashWhere
+    }
+
+    fact noFosterLicensePlate{
+        all lp : LicensePlate | lp in Vehicle.plate
+    }
+
+    fact noFosterPicture{
+        all pic : Picture | pic in Violation.picture
+    }
+
+    fact UniqueUsername {
+        no disj a, b: Person | (a.username = b.username)
+    } 
+
+    fact noMultiJobs {
+        all disj a, b : Authority | (no op : Operator | 
+            op in a.employs and op in b.employs)
+    }
+
+    fact onlyOneAuthorityPerPlace {
+        all disj a, b : Authority | (no mun : Municipality | 
+            mun in a.zone and mun in b.zone)
+    }
+
+    fact UniqueLicensePlates {
+        no disj v1, v2 : Vehicle | v1.plate = v2.plate
+    }
+
+    fact NoDuplicateLocations {
+        no disj loc1, loc2 : Location | (loc1.latitude = loc2.latitude) or 
+            (loc1.longitude = loc2.longitude)
+    }
+
+    fact UniquePictures {
+        no disj v1, v2 : Violation | v1.picture = v2.picture
+    }
+
+    fact UniqueFiscalCode{
+        no disj u1, u2 : User | u1.id = u2.id
+    }
+\end{alloy}
