@@ -4,14 +4,14 @@ skinparam Shadowing false
 actor Authority as A
 participant SafeStreets as SS
 
-A -> SS : requestViolationsReports()
-SS -> SS : checkViolationReports()
+A -> SS : requestViolationsReports(auth)
+SS -> SS : retrieveViolationReports(auth)
 alt some reports are available to be reviewed
 SS --> A : violationReportList
-A -> SS : selectedViolation(rep)
+A -> SS : selectViolation(rep)
 SS --> A : availableActions
-A -> SS : selectedAction(act)
-SS -> SS : elaborateAction(act)
+A -> SS : selectAction(action)
+SS -> SS : applyAction(rep, action)
 SS --> A : actionSuccess
 else
 SS --> A : violationReportsAlreadyReviewed

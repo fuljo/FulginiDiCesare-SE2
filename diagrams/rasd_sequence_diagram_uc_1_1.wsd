@@ -6,15 +6,15 @@ participant SafeStreets as SS
 
 U -> SS : registrationRequest(req)
 
-SS -> SS : checkFiscalCodeFormat(fisc)
+SS -> SS : checkFiscalCodeFormat\n(req.fiscalCode)
 alt invalid fiscal code format
-SS --> U : showWarning
+SS --> U : warning
 else
-SS -> SS : checkUniqueIdentifiers(id)
+SS -> SS : checkUniqueIdentifiers\n(req.fiscalCode, req.username)
 alt username or fiscal code already in use
-SS --> U : showWarning
+SS --> U : warning
 else
-SS -> SS: registerUser(usr)
+SS -> SS: registerUser(req)
 SS --> U: successfulRegistration
 end
 end

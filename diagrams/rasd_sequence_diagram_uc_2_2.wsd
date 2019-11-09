@@ -4,11 +4,11 @@ skinparam Shadowing false
 actor Authority as A
 participant SafeStreets as SS
 
-A -> SS : requestAvailableStatistics()
+A -> SS : requestStatisticsType(type)
 alt there are available statistics
 SS --> A : availableStatistics
-A -> SS : requestSpecificStatistics(stat)
-SS -> SS : elaborateData()
+A -> SS : filterStatistics(filter)
+SS -> SS : elaborateData(stats, filter)
 SS --> A : statisticsData
 else
 SS --> A : noStatisticsAvailable

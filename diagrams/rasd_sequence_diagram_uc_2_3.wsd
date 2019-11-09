@@ -5,6 +5,7 @@ actor Authority as A
 participant SafeStreets as SS
 
 A -> SS : requestAvailableSuggestions()
+SS -> SS : retrieveSuggestions(auth)
 alt there are available suggestions
 SS --> A : availableSuggestions
 A -> SS : requestDetails(sug)
@@ -12,8 +13,8 @@ SS -> SS : collectData(sug)
 SS --> A : suggestionDetails
 alt suggestion carried out 
 A -> SS : markAsCarriedOut(sug)
-SS -> SS : elaborateSuggestion()
-SS --> A : confirmationMessage
+SS -> SS : markAsCarriedOut(sug)
+SS --> A : confirmation
 end
 else
 SS --> A : noSuggestionsAvailable

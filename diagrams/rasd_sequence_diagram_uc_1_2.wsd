@@ -7,8 +7,8 @@ participant SafeStreets as SS
 U -> SS : loginRequest(req)
 SS -> SS : checkInsertedData(req)
 
-alt username and password does not match
-SS --> U : showError
+alt username and password do not match
+SS --> U : error
 else 
 SS --> U : loginSuccessful
 end
