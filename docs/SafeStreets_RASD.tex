@@ -12,7 +12,18 @@
 \author{Alessandro Fulgini \and Federico di Cesare}
 \def\Version{1.0}
 
+% Bibliography
 \addbibresource{bibliography.bib}
+
+\DeclareBibliographyCategory{refdocs}
+\DeclareBibliographyCategory{refs}
+
+\addtocategory{refdocs}{se2:ss}
+\addtocategory{refdocs}{ieee:8559686}
+\addtocategory{refdocs}{jackson:software}
+\addtocategory{refs}{gdpr:article-4-definitions}
+\addtocategory{refs}{gu:dpr-15/2018}
+\addtocategory{refs}{wiki:decimal-degrees}
 
 \input{chapters_rasd/goals_requirements_domain} % Macros for goals, etc.
 
@@ -30,4 +41,5 @@
   \include{chapters_rasd/overall_description/overall_description}
   \include{chapters_rasd/specific_requirements/specific_requirements}
   \include{chapters_rasd/formal_analysis/formal_analysis}
+  \printbibliography[heading=bibnumbered, title={References}, category=refs]
 \end{document}
