@@ -8,8 +8,6 @@ municipality has one reference authority (e.g.\ police department) that is
 responsible for handling traffic violations in that area.
 The authority may activate the service or not in its area.
 
-% TODO: put a disegnino
-
 First of all, the user must register to the service by providing his/her 
 fiscal code, a username and a password of his choice.
 By requiring the fiscal code to be unique for each user, we can avoid
@@ -54,3 +52,35 @@ can only be offered in municipalities that provide such data.
 The data is supposed to contain the location, timestamp and accident type for
 each accident. We also assume that there are a finite pre-defined set of
 accident types.
+
+The various phenomena that are relevant or partially relevant for
+the system, are summarized in table \vref{tab:phenomena}.
+
+\begin{table}
+    \caption{Table of phenomena. Phenomena controlled by the world are marked
+    with \emph{W}, while the ones controlled by the machine are marked with
+    \emph{M}}
+    \label{tab:phenomena}
+    \centering\sffamily
+    \begin{tabu} to \linewidth {X c c}
+        \toprule
+        \rowfont{\bfseries}
+        Phenomenon & Controlled by & Shared \\
+        \midrule
+        A user registers to the service & W & \cmark \\
+        A vehicle commits a parking violation & W & \xmark \\
+        A user takes a photo & W & \cmark \\
+        A user reports a violation & W & \cmark \\
+        An operator checks the reported violations & W & \cmark  \\
+        An operator accepts/refuses a violation report & W & \cmark  \\
+        The Police emits a fine for a violation & W & \xmark \\
+        The system computes statistics based on the stored violations & M & \xmark \\
+        A user/operator views the statistics & W & \cmark  \\
+        The system retrieves data about accidents & M & \xmark  \\
+        The system computes suggested actions & M & \xmark  \\
+        An operator checks for new suggested actions & W & \cmark  \\
+        An operator marks a suggested action as \emph{carried out} & W & \cmark  \\
+        The system determines whether a carried out action has been useful or not & M & \xmark  \\
+        \bottomrule
+    \end{tabu}
+\end{table}
