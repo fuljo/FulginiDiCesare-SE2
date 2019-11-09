@@ -1,1 +1,40 @@
 \section{Document structure}
+The present document is divided into chapters. Here we give a brief description
+of each chapter and its intended audience.
+\begin{description}
+    \item[Chapter \ref{ch:intro}] outlines the general purpose of the project,
+    including the goals it has to reach. It illustrates the scope of the
+    applications and provides some definitions that will be used throughout
+    the document. It also contains the document revision history and the list of
+    the specification documents that describe the project and the required
+    analysis approach.
+    It is intended for a \emph{general audience}, as the description is provided
+    at a high and non-technical level.
+    \item[Chapter \ref{ch:desc}] provides a description of the intended product.
+    Here we illustrate the domain model by showing the main entities involved,
+    their relations and life cycle.
+    Then we illustrate the functionalities, the types of users and finally we
+    set the boundaries of the domain.
+    This chapter is addressed to the \emph{clients} for which the system is
+    being built for, in order to check that the right functionalities and domain
+    assumptions have been captured, but also to \emph{software engineers}
+    and \emph{developers} that work on this project, so they can get a
+    high-level description.
+    \item[Chapter \ref{ch:reqs}] provides a detailed description of the
+    requirements.
+    Here we define the various interface requirements, the functional
+    requirements (also illustrated with the help of use cases) and
+    finally the non-functional requirements (performance, reliability, security
+    and other constraints).
+    The intended audience of this chapter are the \emph{designers},
+    \emph{developers} and \emph{testers} of the project.
+    When possible, we inserted some hints to achieve the desired requirements,
+    which might become handy during the design phase.
+    \item[Chapter \ref{ch:formal}] provides a formal analysis of the domain
+    model using the \emph{Alloy} language.
+    In particular it is aimed to show the consistency constraints of the data
+    model.
+    For this reason it is particularly addressed to the \emph{developers} of the
+    data model and to the \emph{testers}, that will need to verify that the
+    implemented product is consistent with the formal representation. 
+\end{description}
