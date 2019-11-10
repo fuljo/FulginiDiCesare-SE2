@@ -1,0 +1,13 @@
+\begin{alloy}
+fun getAuthorityFromOperator[op : Operator]: set Authority {
+    employs.op
+}
+
+fun getViolationsFromMunicipality[mun : Municipality]: set Violation{
+    where.belongsTo.mun
+}
+
+fun visibleViolations[op : Operator]: set Violation{
+    getViolationsFromMunicipality[getAuthorityFromOperator[op].zone]
+}
+\end{alloy}

@@ -1,0 +1,55 @@
+\begin{alloy}
+sig Username, Password {}
+
+abstract sig Person {
+    username : one Username,
+    password : one Password
+}
+
+sig FiscalCode{}
+
+sig User extends Person {
+    id : one FiscalCode
+}
+
+sig Operator extends Person {}
+
+sig Municipality {}
+
+sig Authority {
+    employs : some Operator,
+    zone : some Municipality
+}
+
+sig Vehicle {
+    plate : one LicensePlate
+}
+
+sig LicensePlate {}
+
+sig Violation {
+    where : one Location,
+    vehicle : one Vehicle,
+    picture : one Picture
+}
+
+sig Picture{}
+
+sig Location {
+    belongsTo : one Municipality,
+    latitude : one Int,
+    longitude : one Int
+}{
+    latitude > -90 and latitude < 90 and
+    longitude > -180 and longitude < 180
+}
+
+sig Accident{
+    crashWhere : one Location
+}
+
+sig SuggestedAction {
+    possibleCause : some Violation,
+    prevents : some Accident
+}
+\end{alloy}
