@@ -3,6 +3,9 @@ Here we programmatically introduce the requirements needed to satisfy our goals.
 In order to make apparent that the requirements satisfy the goals in the context
 of domain assumptions, for each goal we will list the requirements and domain
 assumptions that are needed to satisfy it.
+In table \vref{tab:traceability} we provide a mapping between each goal and the
+most relevant use case related to it. It follows that the requirements that
+need to fulfill the goal are also strongly related to the use case.
 
 \begin{description}
     % Goal 1
@@ -89,3 +92,22 @@ assumptions that are needed to satisfy it.
         \RuleItem{D10}
     \end{description}
 \end{description}
+
+\begin{table}[t]
+    \caption{Traceability matrix}
+    \label{tab:traceability}
+    \centering\sffamily
+    \begin{tabu} to \linewidth {c c}
+        \toprule
+        \rowfont{\bfseries}
+        Goal ID & Use case ID \\
+        G1 & UC1.3 \\
+        G2 & UC1.3 \\
+        G3 & UC1.4 \\
+        G4 & UC2.1 \\
+        G5 & UC2.2 \\
+        G6 & UC1.4 \\
+        G7 & UC2.3 \\
+        \bottomrule
+    \end{tabu}
+\end{table}
