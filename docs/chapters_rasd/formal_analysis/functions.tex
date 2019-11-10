@@ -2,17 +2,4 @@
 Here we describe a function that shows which \emph{Violations} are visible to
 a certain \emph{Operator}. We make use of two auxiliary functions in order to
 increase readability.
-
-\begin{alloy}
-    fun getAuthorityFromOperator[op : Operator]: set Authority {
-        employs.op
-    }
-
-    fun getViolationsFromMunicipality[mun : Municipality]: set Violation{
-        where.belongsTo.mun
-    }
-
-    fun visibleViolations[op : Operator]: set Violation{
-        getViolationsFromMunicipality[getAuthorityFromOperator[op].zone]
-    }
-\end{alloy}
+\lstinputlisting[language=alloy, firstline=122, lastline=132]{alloy/model.als}
