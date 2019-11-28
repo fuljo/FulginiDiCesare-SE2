@@ -28,6 +28,8 @@ SS -> SS : checkData(rep)
 
 alt incorrect data format
 SS --> U : warning
+else cannot assign to authority
+SS --> U : noAuthorityError
 else
 SS -> SS : saveReport(rep)
 SS --> U : violationReportSuccessful
