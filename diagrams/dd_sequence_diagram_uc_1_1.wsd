@@ -1,0 +1,51 @@
+@startuml dd_sequence_diagram_uc_1_1
+skinparam Shadowing false
+
+actor User as U
+participant ":UserMobileApp" as UMA
+participant ":Router" as R
+participant ":AuthenticationManager" as AM
+participant ":DBMS" as DBMS
+
+U -> UMA : selectRegistrationPage()
+activate UMA
+UMA --> U: registrationPage
+U -> UMA : registerNewAccount(fiscalCode, username, password)
+UMA -> R : registerAccount(fiscalCode, username, password)
+activate R
+R -> AM : addAccount(fiscalCode, username, password)
+deactivate R
+activate AM
+AM -> AM : checkFiscalCode(fiscalCode)
+activate AM #e8e8e8
+AM -> DBMS : executeQuery(query)
+activate DBMS
+DBMS --> AM : queryResults
+deactivate AM
+AM -> AM : checkUsername(username)
+activate AM #e8e8e8
+AM -> DBMS : executeQuery(query)
+DBMS --> AM : queryResults
+deactivate AM
+alt invalid fiscal code format
+AM --> UMA : invalidFCFormat
+UMA --> U : invalidFCFormat
+else
+alt username or fiscal code already in use
+AM --> UMA : alreadyUsedError
+UMA --> U : alreadyUsedError
+else
+activate AM #e8e8e8
+AM -> AM : securedPassword = securePassword(password)
+AM -> DBMS : addUser(fiscalcode, username, securedPassword)
+DBMS --> AM : confirmMessage
+deactivate DBMS
+deactivate AM
+AM --> UMA : registrationSuccess
+deactivate AM
+UMA --> U : successMessage
+deactivate UMA
+end
+end
+
+@enduml

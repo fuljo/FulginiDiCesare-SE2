@@ -1,0 +1,56 @@
+@startuml dd_sequence_diagram_uc_1_4
+skinparam Shadowing false
+
+actor User as U
+participant ":UserMobileApp" as UMA
+participant ":Router" as R
+participant ":StatisticsEngine" as SE
+participant ":StatisticsRepresentationEngine" as SRE
+participant ":DBMS" as DBMS
+
+U -> UMA : selectStatisticsPage()
+activate UMA
+UMA -> R : requestAvailableStatistics()
+activate R
+R -> SE : requestAvailableStatistics()
+activate SE
+SE -> SE : checkAvailableStatistics()
+activate SE #e8e8e8
+SE -> DBMS : executeQuery(query)
+activate DBMS
+DBMS --> SE : queryResults
+deactivate SE
+alt There are no available statistics
+SE --> UMA : noStatisticsAvailableError
+UMA --> U : noStatisticsAvailable
+else
+SE --> UMA : availableStatistics
+UMA --> U : statisticsPage
+U -> UMA : selectStatistics(stat)
+UMA -> R : requestStatistics(stat)
+R -> SE : requestStatistics(stat)
+deactivate R
+SE -> SE : fetchData()
+activate SE #e8e8e8
+SE -> DBMS : executeQuery(query)
+DBMS --> SE : queryResults
+deactivate DBMS
+deactivate SE
+SE -> SRE : elaborateStatisticsData(data)
+activate SRE
+SRE -> SRE : elaborateData(data)
+SRE --> SE : elaboratedData
+deactivate SRE
+SE --> UMA : elaboratedData
+deactivate SE
+activate UMA #e8e8e8
+UMA -> UMA : renderStatistics(elaboratedData)
+deactivate UMA
+UMA --> U : visualizeData
+deactivate UMA
+end
+
+
+
+
+@enduml

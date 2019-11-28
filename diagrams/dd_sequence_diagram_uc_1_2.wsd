@@ -1,0 +1,38 @@
+@startuml dd_sequence_diagram_1_2
+skinparam Shadowing false
+
+actor User as U
+participant ":UserMobileApp" as UMA
+participant ":Router" as R
+participant ":AuthenticationManager" as AM
+participant ":DBMS" as DBMS
+
+U -> UMA : selectLoginPage()
+activate UMA
+UMA --> U : loginPage()
+U -> UMA : loginUser(username, password)
+UMA -> R : loginUser(username, password)
+activate R
+R -> AM : loginUser(username, password)
+deactivate R
+activate AM
+AM -> AM : checkData(username, password)
+activate AM #e8e8e8
+AM -> AM : securedPassword = securePassword(password)
+AM -> DBMS : executeQuery(query)
+activate DBMS
+DBMS --> AM : queryResults
+deactivate AM
+deactivate DBMS
+alt user inserted incorrect data
+AM --> UMA : notAuthorizedError
+UMA --> U : incorrectDataError
+else
+AM -> AM : generateToken()
+AM --> UMA : accessToken
+deactivate AM
+UMA --> U : loginSuccessful
+deactivate UMA
+end
+
+@enduml

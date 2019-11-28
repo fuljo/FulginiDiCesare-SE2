@@ -1,0 +1,65 @@
+@startuml dd_sequence_diagram_uc_1_3
+skinparam Shadowing false
+
+actor User as U
+participant ":UserMobileApp" as UMA
+participant ":Router" as R
+participant ":LicensePlateExtractor" as LPE
+participant ":ViolationCollector" as VC
+participant ":DMVAPIWrapper" as DMV
+participant ":ViolationManager" as VM
+participant ":DBMS" as DBMS
+
+U -> UMA : selectReportViolationPage()
+activate UMA 
+UMA --> U : reportViolationPage
+U -> UMA : takePictureRequest()
+UMA -> UMA : pic = takePicture()
+UMA -> R : sendPicture(pic)
+activate R
+R -> LPE : extractPlate(pic)
+activate LPE
+LPE -> LPE : number = getPlateNumber(pic)
+alt License Plate correctly detected
+LPE -> DMV : valdidatePlate(number)
+activate DMV
+DMV -> DMV : checkPlate(number)
+DMV --> LPE : validationResponse
+deactivate DMV
+end
+alt Invalid License Plate or Plate not found
+LPE --> UMA : plateError
+UMA --> U : needManualPlateInsertion
+U -> UMA : insertPlateNumber(number)
+else License Plate OK
+LPE --> UMA : extractedPlateNumber
+deactivate LPE
+UMA -> UMA : autoCompleteLicensePlate(number)
+end
+UMA -> UMA : autoInsertTimestamp()
+UMA -> UMA : autoInsertLocation()
+U -> UMA : selectViolationType(violationType)
+U -> UMA : submitViolation()
+UMA -> R : sendViolation(vio)
+R -> VC : newViolation(vio)
+activate VC
+deactivate R
+VC -> VC : checkData(vio)
+alt Incorrect Violation data
+VC --> UMA : incorrectDataError
+UMA -> U : needReinsertData
+else
+VC -> VM : addNewViolation(vio)
+activate VM
+VM -> DBMS : executeQuery(query)
+activate DBMS
+DBMS --> VM : queryResults
+deactivate DBMS
+VM --> VC : insertionSuccessful
+deactivate VM
+VC --> UMA : insertionSuccessful
+deactivate VC
+UMA --> U : success
+deactivate UMA
+end
+@enduml
