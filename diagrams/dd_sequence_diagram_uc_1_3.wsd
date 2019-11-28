@@ -9,6 +9,7 @@ participant ":ViolationCollector" as VC
 participant ":DMVAPIWrapper" as DMV
 participant ":ViolationManager" as VM
 participant ":DBMS" as DBMS
+participant ":FileServer" as FS
 
 U -> UMA : selectReportViolationPage()
 activate UMA 
@@ -42,8 +43,8 @@ U -> UMA : selectViolationType(violationType)
 U -> UMA : submitViolation()
 UMA -> R : sendViolation(vio)
 R -> VC : newViolation(vio)
-activate VC
 deactivate R
+activate VC
 VC -> VC : checkData(vio)
 alt Incorrect Violation data
 VC --> UMA : incorrectDataError
@@ -55,6 +56,10 @@ VM -> DBMS : executeQuery(query)
 activate DBMS
 DBMS --> VM : queryResults
 deactivate DBMS
+VM -> FS : pushPicture(pic)
+activate FS
+FS --> VM : success
+deactivate FS
 VM --> VC : insertionSuccessful
 deactivate VM
 VC --> UMA : insertionSuccessful

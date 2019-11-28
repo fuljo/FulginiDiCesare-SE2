@@ -1,0 +1,71 @@
+@startuml dd_sequence_diagram_2_1
+skinparam Shadowing false
+
+actor Authority as A
+participant ":AuthorityWebApp" as AWA
+participant ":WebServer" as WS
+participant ":Router" as R
+participant ":ViolationManager" as VM
+participant ":DBMS" as DBMS
+participant ":FileServer" as FS
+
+A -> AWA : requestViolationPage()
+activate AWA
+AWA -> WS : retrieveStaticContent()
+activate WS
+WS --> AWA : staticContent
+deactivate WS
+AWA -> R : requestViolationsList()
+activate R
+R -> VM : requestViolationsList()
+activate VM
+VM -> VM : vioList = retrieveViolations()
+note right
+    ViolationManager firstly
+    recognizes the Authority
+    from the access token, then
+    applies all the required filters
+    in order to show only their
+    violations
+end note
+activate VM #e8e8e8
+VM -> DBMS : executeQuery(query)
+activate DBMS
+DBMS --> VM : queryResults
+VM -> FS : pictures = getPictures(vioList)
+activate FS
+FS --> VM : pictures
+deactivate FS
+deactivate VM
+VM -> VM : attachPictures(pictures, vioList)
+VM --> AWA : violationsList
+alt There are no Violations to be reviewed
+AWA --> A : violationReportsAlreadyReviewed
+else There are some Violations to be reviewed
+AWA --> A : violationsPage
+A -> AWA : selectViolation(vio)
+AWA -> R : requestAvailableActions(vio)
+R -> VM : requestAvailableActions(vio)
+VM -> VM : retrieveActions(vio)
+activate VM #e8e8e8
+VM -> DBMS : executeQuery(query)
+DBMS --> VM : queryResults
+deactivate VM
+VM --> AWA : availableActions
+AWA --> A : availableActions
+A -> AWA : selectAction(act, vio)
+AWA -> R : applyAction(act, vio)
+R -> VM : applyAction(act, vio)
+deactivate R
+VM -> VM : applyAction(act, vio)
+activate VM #e8e8e8
+VM -> DBMS : executeQuery(query)
+DBMS --> VM : queryResults
+deactivate DBMS
+deactivate VM
+VM --> AWA : confirmMessage
+deactivate VM
+AWA --> A : success
+deactivate AWA
+end
+@enduml
