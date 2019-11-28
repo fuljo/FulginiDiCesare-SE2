@@ -1,0 +1,40 @@
+@startuml dd_sequence_diagram_accident_collector
+skinparam Shadowing false
+
+participant ":AccidentDataCollector" as ADC
+participant ":MunicipalityAPIWrapper" as MAPIW
+participant ":SuggestionsEngine" as SE
+participant ":DBMS" as DBMS
+
+loop Scheduled every n hours
+
+ADC -> MAPIW : requestUpdates()
+activate ADC
+activate MAPIW
+alt There are new accidents
+MAPIW --> ADC : updates
+ADC -> ADC : saveNewAccidents
+ADC -> DBMS : executeQuery(query)
+activate DBMS
+DBMS --> ADC : queryResults
+else
+MAPIW --> ADC : noUpdatesFound
+deactivate MAPIW
+deactivate ADC
+end
+end
+
+loop Scheduled every n hours
+SE -> SE : checkUpdates()
+activate SE
+SE -> DBMS : executeQuery(query)
+DBMS --> SE : queryResults
+SE -> SE : runMachineLearning()
+SE -> SE : insertNewSuggestions()
+SE -> DBMS : executeQuery(query)
+DBMS --> SE : queryResults
+deactivate DBMS
+deactivate SE
+
+end
+@enduml
