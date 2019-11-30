@@ -1,4 +1,4 @@
-@startuml dd_sequence_diagram_1_2
+@startuml dd_sequence_diagram_uc_1_2
 skinparam Shadowing false
 
 actor User as U

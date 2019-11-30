@@ -1,4 +1,4 @@
-@startuml dd_sequence_diagram_2_1
+@startuml dd_sequence_diagram_uc_2_1
 skinparam Shadowing false
 
 actor Authority as A
