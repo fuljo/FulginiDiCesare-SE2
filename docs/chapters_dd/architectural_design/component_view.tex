@@ -145,11 +145,8 @@ interactions:
     \item[DMVAPIWrapper] The components that need to check the validity of
     a licence plate number don't directly interact with the external API, but
     with this internal component that wraps around the API.
-    Its aim is to provide an interface that is consistent with the rest of the
-    internal ones. This makes it easier to hide the actual API and data format
-    used by the external service, so if it changes for some reason we only
-    need to modify this component rather than all the ones that rely on this
-    service.
+    For details on the advantages of this approach
+    see~\ref{subsec:adapter_pattern}
     \item[MunicipalityAPIWrapper] Similarly to the previous one, we provide a
     wrapper also for the APIs offered by municipalities to retrieve data about
     accidents. Here the need for a component that converts the various data
