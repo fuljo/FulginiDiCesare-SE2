@@ -1,0 +1,116 @@
+\section{Selected architectural styles and patterns}
+\label{sec:styles_patterns}
+\subsection{Four-tier client/server architecture}
+As shown in section~\ref{sec:deployment_view}, we decided to use a client/server
+architecture, where the components have been divided into four \emph{tiers}.
+The communication is always initiated by the client, while the server only
+waits for requests, processes them and finally responds. There are no cases
+in which the server actively contacts the client (e.g.\ push notifications).
+The client/server communication is fully based on HTTP.
+Furthermore, in order to guarantee security, it is mandatory to use HTTP over
+TLS (HTTPS) for such communication.
+
+On the other hand the division in tiers enables to \emph{uncouple} the
+components from one another, which facilitates parallel development, maintenance
+and also hides the internal complexity of a tier (e.g.\ partitioning and
+replication) to its users.
+
+\subsection{RESTful communication and stateless components}
+As already mentioned earlier, the communication between the client and the
+application tier is based on the REST architectural style. Here both the mobile
+and the web clients can perform operations (register, login, mark violations and
+suggestions) and request data (violations, suggestions, statistics) in a
+request-response fashion. In fact all the above mentioned functionalities are
+designed in such a way that they can each be completed with a single request and
+response. Furthermore each request also carries an access token (except
+registration and login, of course) that is used to check the access rights of
+the client who sent the request.
+In this way the application components can be \emph{completely stateless} and
+only rely on the data stored in the DB and file server.
+This means that we can have multiple instances of the same component and the
+\emph{Router}, implemented with a Kubernetes API Gateway, can forward an
+incoming request to any of those instances.
+
+Another advantage of using the RESTful architecture is that data can be
+represented in a simple and platform-independent way using JSON, allowing for
+a total uncoupling between the application server and the clients.
+In fact, even if the citizen client is a native iOS or Android application,
+while the authority client is a website, they can still share the same API,
+as the conversion to the concrete data structures happens inside the client
+itself.
+
+\subsection{Elastic components and load balancers}
+The choice of a RESTful architecture with stateless components means that a
+request can be sent to any instance of a component, without affecting the
+correctness of the response. These considerations of course hold also for
+the static web server, which is stateless by definition.
+
+We have exploited this advantage by running each component in a separate
+\emph{Docker} container and all containers are managed by Kubernetes.
+Kubernetes always keeps at least one instance of each component running, but
+when the workload increases it automatically spawns new containers to replicate
+stressed components and automatically assigns the requests to the various
+instances in order to share the workload between them.
+When the workload decreases again, the replicated containers are deleted
+accordingly.
+
+The goals of this decision are to achieve \emph{scalability} and also to make
+an efficient use of the computational resources.
+
+\subsection{Facade pattern}
+The facade pattern consist in providing a unique and simplified interface to
+interact with a complex system. This pattern has been used various times
+in our design:
+\begin{itemize}
+    \item in the \emph{ApplicationServer} subsystem, which provides a unique
+    REST API managed by the \emph{Router}. This hides the fact that the requests
+    are actually fulfilled by other components, which may also be replicated
+    other multiple nodes.
+    \item in the \emph{data tier}, where both the Database and the File Server
+    offer a single entrypoint to access data that is actually partitioned over
+    multiple nodes.
+\end{itemize}
+
+\subsection{Adapter pattern}
+\label{subsec:adapter_pattern}
+This pattern consists in allowing an existing interface to be used as another
+interface. We used this pattern on the \emph{DMVAPIWrapper} and
+\emph{MunicipalityAPIWrapper}, both providing access to external APIs.
+The external APIs are usually not consistent with the internal ones, in
+terms of communication model (RPC in this case), data format (the data
+structures may be different) and they may also change over time.
+So the aim of the above mentioned components is to provide interfaces that are
+consistent with the rest of the internal ones. If an external API changes for
+some reason we only need to modify its wrapper, rather than all the components
+that use it.
+
+\subsection{Database sharding}
+\label{subsec:db_sharding}
+Database sharding is a database architecture pattern that consists in
+\emph{horizontal partitioning}: separating the table rows into different
+sub-tables (\emph{logical shards}) and assigning each of them to
+a different node (\emph{physical shard}).
+
+This choice has been dictated by the fact that we expect that, at some point,
+a single DB node wouldn't be able to store all the data, so we needed to apply
+a \emph{horizontal scaling} technique that allows to efficiently partition the
+data and share the workload between different nodes.
+
+In order to actually balance the workload between the physical shards, a proper
+partitioning criterion should be put in place.
+We chose to create \emph{a logical shard for each authority}, meaning that
+all the violations and suggestions regarding the municipalities under a specific
+authority belong to the same shard. The rationales that led to this choice are:
+\begin{itemize}
+    \item a single authority has access to all and only the data about the
+    municipalities under its jurisdiction
+    \item the suggestions are computed on a per-municipality basis, so they
+    only access data about a specific municipality
+    \item the rate of requests for a single municipality (or a small subset)
+    is relatively small and can be supported by a single node
+    \item the rate of requests is (approximately) evenly spread between
+    the municipalities
+\end{itemize}
+With this technique, the most common operations (retrieve suggestions and
+violations, insert or update a single violation or suggestion) only require
+access to a single partition, which makes them efficient.
