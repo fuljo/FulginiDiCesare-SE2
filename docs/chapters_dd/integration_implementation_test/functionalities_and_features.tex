@@ -1,0 +1,61 @@
+\section{Functionalities and features}
+Here is a table showing the various functionalities of the system and their
+respective importance for the customer and difficulty of implementation. Note
+that the \emph{Importance for the customer} isn't in any way related to the
+importance for the system by a structural point of view. For example the Login
+feature is very important for \emph{SafeStreets} since we truly need to register
+our users, but from the point of view of the costumer, it's something that won't
+really be noticed.
+
+\begin{table}[H]
+    \rowcolors{1}{white}{lightgray}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Feature} & \textbf{\begin{tabular}[c]{@{}l@{}}Importance for the \\ customer\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Difficulty of \\ implementation\end{tabular}} \\ \hline\hline
+    Sign-up and Login & Low & Low \\ \hline
+    Violation Report & High & Low \\ \hline
+    Automatic metadata insertion & Medium & Low \\ \hline
+    Automatic License Plate detection & Medium & High \\ \hline
+    Visualize statistics & High & High \\ \hline
+    Manage Violation Reports & High & Medium \\ \hline
+    Collection of accidents data & Medium & Medium \\ \hline
+    Visualize and manage suggestions & High & Low \\ \hline
+    \begin{tabular}[c]{@{}l@{}}Machine Learning algorithm to \\ generate suggestions\end{tabular} & Low & High \\ \hline
+    \end{tabular}
+\end{table}
+
+The development will follow a bottom-up approach, in order to improve components
+reliability and progressively integrate the single components into the system.
+Here is a list that describes which components will take care of each feature.
+\begin{itemize}
+    \item \textbf{Sign-up and Login:} the main component for this feature is
+        \emph{AuthenticationManager}, also the \emph{DBMS} will be needed in
+        order to save the user's data.
+    \item \textbf{Violation Report:} for this feature \emph{ViolationManager} 
+        and \emph{ViolationCollector} are needed, as well as \emph{DBMS}.
+    \item \textbf{Automatic metadata insertion:} this is a minor feature and it
+        is taken care by the \emph{UserMobileApp}.
+    \item \textbf{Automatic License Plate detection:} this feature will be
+        handled by \emph{LicensePlateExtractor} and will also involve the
+        \emph{DMVAPIWrapper}.
+    \item \textbf{Visualize Statistics:} both users and authorities will have
+        access to this feature, it needs \emph{StatisticsEngine} and
+        \emph{StatisticsRepresentationManager}, the rendering of the data is
+        performed by \emph{UserMobileApp}, or the \emph{AuthorityWebApp}. In any
+        case, these components have a little work to do. In order to access
+        stored data, also the \emph{DBMS} will be necessary.
+    \item \textbf{Manage Violation Reports:} in order to make this feature work,
+        the component which is needed is \emph{ViolationManager}, and of course
+        the \emph{DBMS}.
+    \item \textbf{Collection of accidents data:} for this feature the system
+        will need the \emph{AccidentDataCollector} implemented. The data will be
+        stored into the database, so also \emph{DBMS} is required.
+    \item \textbf{Visualize and manage suggestions:} this is the core function
+        of \emph{SmartSuggestions} sub-system. The component in charge of this
+        feature is \emph{SuggestionsManager}, which fetches data from the
+        \emph{DBMS}.
+    \item \textbf{Machine Learning to generate suggestions:} this is probably
+        the most difficult feature to implement. So we will need to take
+        specific care, the component is \emph{SuggestionsEngine}, as well as the
+        \emph{DBMS} to retrieve and store data.
+\end{itemize}
