@@ -1,0 +1,55 @@
+\section{Non-functional requirements}
+The non-functional requirements, which comprise the \emph{performance
+requirements}, \emph{design constraints} and \emph{software system attributes}
+(sections 3.3-3.5 of the RASD), are particularly related to the \emph{deployment
+strategy} (see section~\ref{sec:deployment_view}) and the \emph{architectural patterns}
+(see section~\ref{sec:styles_patterns}) that have been applied.
+Here we analyze in how the crucial aspects have been taken care of.
+
+\paragraph{Scalability}
+A lot of architectural decisions have been made to ensure the scalability of
+the system:
+\begin{itemize}[noitemsep]
+    \item tiered architecture
+    \item containerization of components with Docker and Kubernetes
+    \item elastic replication and load balancing
+    \item stateless components
+    \item database sharding
+\end{itemize}
+These are also aimed at improving the \emph{reliability}, \emph{availability}
+and reduce \emph{response times}.
+
+\paragraph{Performance}
+Aside from the response times for the clients, it has been required for the
+suggestions to be generated periodically. As stated in
+section~\ref{sec:component_view} the \emph{SuggestionsEngine} will take care of
+scheduling the jobs to generate new suggestions, as new data becomes available.
+
+\paragraph{Security}
+The measures related to security include:
+\begin{itemize}[noitemsep]
+    \item firewalls to protect the internal components
+    (section~\ref{sec:deployment_view})
+    \item use of HTTPS for communication over the internet
+    (section~\ref{sec:deployment_view})
+    \item hashed passwords in the DB
+    (sequence diagram~\ref{fig:dd_sequence_diagram_uc_1_1})
+    \item session tokens to use the APIs (section~\ref{sec:component_view})
+\end{itemize}
+
+\paragraph{Mantainability}
+The use of the RESTful architecture (section~\ref{sec:styles_patterns}) and the
+loose coupling between the components are all aimed at providing a better
+maintainability than a monolithic approach.
+Furthermore the use of management tools such as Kubernetes provide a way of
+managing and distributing images of the various components, which facilitates
+the versioning and deployment processes.
+
+\paragraph{Portability}
+The \emph{mobile application} will be developed for both Android and iOS
+platforms, keeping a consistent design language and user experience.
+On the server side, the use of \emph{containerization} reduces the dependency
+of the components from the hardware, since they run on a virtual environment.
+This makes it easy to port the containers from one machine to another, provided
+that they can run Docker and they have the same architecture (we can safely
+assume to be dealing with x86/64 servers).

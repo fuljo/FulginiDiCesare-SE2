@@ -1,0 +1,175 @@
+\section{Functional requirements}
+The functional requirements are mainly related to \emph{components}, so for each
+requirement we list the related components and a brief explanation when needed,
+for a detailed description of each component's purpose see
+section~\ref{sec:component_view}. Please note that for conciseness we only list
+the components that are \emph{directly related} to satisfy the requirement,
+other components, such as the DB, that are indirectly used might be omitted.
+
+\begin{description}
+    \RuleItem{R1} % user registration
+    \begin{itemize}
+        \item \emph{UserMobileApp} -- interface provided to the user
+        \item \emph{AuthenticationManager} -- creates the accounts, enables
+        login
+    \end{itemize}
+
+    \RuleItem{R2} % check registration data
+    \begin{itemize}
+        \item \emph{AuthenticationManager} -- checks unique username and
+        password before creating an account
+    \end{itemize}
+
+    \RuleItem{R3} % upload photos
+    \begin{itemize}
+        \item \emph{UserMobileApp} -- contains page to take photo
+        \item \emph{LicencePlateExtractor} -- accepts photos uploaded by users
+        to extract the licence plate
+        \item \emph{ViolationCollector} -- accepts photos attached to incoming
+        violation reports
+    \end{itemize}
+
+    \RuleItem{R4} % auto-detect report fields
+    \begin{itemize}
+        \item \emph{UserMobileApp}
+    \end{itemize}
+
+    \RuleItem{R5} % select violation type
+    \begin{itemize}
+        \item \emph{UserMobileApp} -- report violation page
+        \item also enforced by the DBMS schema
+    \end{itemize}
+
+    \RuleItem{R6} % send reports
+    \begin{itemize}
+        \item \emph{UserMobileApp} -- report violation page
+        \item \emph{ViolationCollector} -- accepts incoming violation reports
+    \end{itemize}
+
+    \RuleItem{R7} % edit report before sending
+    \begin{itemize}
+        \item \emph{UserMobileApp} -- report violation page
+    \end{itemize}
+
+    \RuleItem{R8} % detect invalid licence plates
+    \begin{itemize}
+        \item \emph{DMVAPIWrapper}
+    \end{itemize}
+
+    \RuleItem{R9} % extract licence plate
+    \begin{itemize}
+        \item \emph{LicencePlateExtractor}
+    \end{itemize}
+
+    \RuleItem{R10} % persistent storage
+    \begin{itemize}
+        \item \emph{DBMS} -- persistently stores the data about the reports,
+        except for the image files
+        \item \emph{FileServer} -- persistently stores the photos attached to
+        the violation reports.
+    \end{itemize}
+
+    \RuleItem{R11} % only persist valid violations
+    \begin{itemize}
+        \item \emph{ViolationCollector} -- checks the validity of the fields
+        in the incoming reports
+        \item  \emph{ViolationManager} -- assigns each incoming report to an
+        authority, if this is not possible the report is rejected, otherwise it
+        is sent to the DBMS
+        \item \emph{DBMS} -- enforces integrity constraints on the fields of the
+        stored violation reports
+    \end{itemize}
+
+    \RuleItem{R12} % save anonymous reports
+    \begin{itemize}
+        \item \emph{DBMS} -- in the schema a violation is not related to a user
+        (also see~\ref{fig:er_diagram})
+    \end{itemize}
+
+    \RuleItem{R13} % operator login
+    \begin{itemize}
+        \item \emph{AuthorityWebApp} -- interface for the operator, also saves
+        the access token returned by the server
+        \item \emph{AuthenticationManager} -- checks login credentials and
+        creates and returns an access token
+        \item \emph{DBMS} -- stores the login credentials
+    \end{itemize}
+
+    \RuleItem{R14} % assign violation to authority
+    \begin{itemize}
+        \item \emph{UserMobileApp} -- captures the location of the user and
+        sends it as part of the report
+        \item \emph{ViolationManager} -- assigns each incoming report to an
+        authority, if this is not possible the report is rejected
+        \item \emph{DBMS} -- stores the municipalities for which an authority
+        is responsible
+    \end{itemize}
+
+    \RuleItem{R15} % operator only accesses violations under jurisdiction
+    \begin{itemize}
+        \item \emph{AuthorityWebApp} -- violations list page
+        \item \emph{ViolationManager}
+    \end{itemize}
+
+    \RuleItem{R16} % delete discarded reports
+    \begin{itemize}
+        \item \emph{AuthorityWebApp} -- violations list page
+        \item \emph{ViolationManager}
+    \end{itemize}
+
+    \RuleItem{R17} % filter and aggregate violations
+    \begin{itemize}
+        \item \emph{DBMS} -- SQL provides the \texttt{where} and \texttt{group
+        by} clauses in its query language
+    \end{itemize}
+
+    \RuleItem{R18} % compute statistics
+    \begin{itemize}
+        \item \emph{StatisticsEngine}
+    \end{itemize}
+
+    \RuleItem{R19} % view violations (operator)
+    \begin{itemize}
+        \item \emph{AuthorityWebApp} -- statistics page
+        \item \emph{StatisticsEngine} -- computes statistics, includes the plate
+        number based on the access token in the request
+        \item \emph{StatisticsRepresentationManager} -- formats the raw
+        statistics data
+    \end{itemize}
+
+    \RuleItem{R20} % view violations (user)
+    \begin{itemize}
+        \item \emph{UserMobileApp} -- statistics page
+        \item \emph{StatisticsEngine} -- computes statistics, includes the plate
+        number based on the access token in the request
+        \item \emph{StatisticsRepresentationManager} -- formats the raw
+        statistics data
+    \end{itemize}
+
+    \RuleItem{R21} % retrieve accident data
+    \begin{itemize}
+        \item \emph{MunicipalityAPIWrapper}
+        \item \emph{AccidentDataCollector}
+    \end{itemize}
+
+    \RuleItem{R22} % determine causal relation between accidents and violations
+    \begin{itemize}
+        \item \emph{SuggestionsEngine}
+    \end{itemize}
+
+    \RuleItem{R23} % determine suggested actions
+    \begin{itemize}
+        \item \emph{SuggestionsEngine}
+    \end{itemize}
+
+    \RuleItem{R24} % view and manage suggestions
+    \begin{itemize}
+        \item \emph{AuthorityWebApp} -- suggestions list page
+        \item \emph{SuggestionsManager} -- get list of suggestions, mark them
+    \end{itemize}
+
+    \RuleItem{R25} % feedback
+    \begin{itemize}
+        \item \emph{SuggestionsEngine}
+    \end{itemize}
+\end{description}
