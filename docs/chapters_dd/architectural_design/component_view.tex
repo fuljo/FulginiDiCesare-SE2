@@ -154,3 +154,66 @@ interactions:
     even more evident, since it is quite unlikely that all the municipalities
     provide such data in the same format.
 \end{description}
+
+\clearpage
+
+\subsection{Database design}
+Here we present a \emph{conceptual model} of the database through the
+entity-relationship diagram in figure~\vref{fig:er_diagram}, according to
+the \emph{Chen} notation;
+optional (nullable) attributes are represented with dotted lines.
+
+This model includes all the entities and attributes that have been identified
+so far.
+The task of translating it to the relational model is left to the implementation
+phase, since the choice of the attribute types and other smaller decisions
+may depend on the specific implementation of the DBMS itself.
+Furthermore, additional attributes or tables may be added if needed, such
+as metadata needed by the suggestions engine to keep track of its jobs.
+It should also be noted that most DBMS systems usually keep track of when each
+tuple has been \emph{created} and \emph{last modified}; these timestamps
+can be used by the \emph{SuggestionsEngine} to check if new data has been
+introduced since the last run, without the need of wasting space by introducing
+new attributes.
+
+\noindent
+Now we give further details that could not be represented in the diagram:
+\begin{itemize}
+    \item in the \textbf{AccessToken} entity, the \emph{expiration} attribute
+    is a timestamp that limits the validity of the token.
+    \item in \textbf{Municipality} the \emph{APIUrl} attribute identifies the
+    REST endpoint used to retrieve data about accidents, while
+    \emph{lastCollected} and \emph{lastSuggestionsRun} are two timestamps
+    indicating the last time the API was queried to collect new accidents and
+    the last time that the \emph{SuggestionsEngine} was run to compute
+    suggestions for that specific municipality, respectively.
+    In case the municipality does not offer this service, all three fields are
+    set to \texttt{NULL}.
+    \item both \textbf{Violation} and \textbf{Accident} are related to a
+    \emph{municipality}, but they must also be relatable to an \emph{authority}
+    as specified by requirement R11; therefore an additional integrity rule to
+    check this must be put in place.
+    \item both \textbf{Violations} and \textbf{Accidents} are given artificial
+    unique identifiers, they also have a \emph{type} attribute which is of the
+    enumerator type, since by domain assumptions there are a finite set of types
+    for each of these entities. The \emph{timestamp} attribute indicates when
+    the violation/accident occurred. The format for the \emph{licencePlate},
+    \emph{longitude} and \emph{latitude} has been described in the RASD
+    (section 3.4.1 -- Standards compliance)
+    \item in the \textbf{SuggestedAction} entity \emph{latitude} and
+    \emph{longitude} indicate the (approximate) location where the suggested
+    action has to be implemented. The \emph{status} has attributes can take
+    two values: \emph{pending}, given when the suggestion is created and
+    \emph{carried out}, which is set when the suggestion is marked by the
+    operator, in this case the value of \emph{carriedOutTimestamp} must also
+    be set accordingly, to allow the evaluation of the effectiveness of this
+    action by the \emph{SuggestionsEngine}.
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{dd_er}
+    \caption{Entity-relationship diagram}
+    \label{fig:er_diagram}
+\end{figure}
+
