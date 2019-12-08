@@ -10,15 +10,16 @@ participant ":DBMS" as DBMS
 
 A -> AWA : requestSuggestionsPage()
 activate AWA
-AWA -> WS : retrieveStaticContent()
+AWA -> WS : get("/suggestions")
 activate WS
-WS --> AWA : staticContent
+WS --> AWA : webPage
 deactivate WS
-AWA -> R : requestAvailableSuggestions()
+AWA -> R : requestSuggestionsList()
 activate R
-R -> SM : requestAvailableSuggestions()
+R -> SM : getSuggestionsList()
+deactivate R
 activate SM
-SM -> SM : retrieveAvailableSuggestions()
+SM -> SM : authority =\ndetermineAuthority(req.token)
 note right
     The SuggestionsManager identifies
     the Authority from it's session
@@ -26,44 +27,46 @@ note right
     the required filters to show
     it only their suggestions
 end note
-activate SM #e8e8e8
-SM -> DBMS : executeQuery(query)
+SM -> DBMS : selectSuggestions(authority)
 activate DBMS
 DBMS --> SM : queryResults
-deactivate SM
+deactivate DBMS
 alt There are no Suggestions to be shown
 SM --> AWA : noSuggestionsAvailable
 AWA --> A : noSuggestionsAvailable
 else There are Suggestions to be shown
-SM --> AWA : availableSuggestions
-AWA --> A : suggestionsPage
-A -> AWA : requestDetails(sug)
-AWA -> R : requestSuggestionDetails(sug)
-R -> SM : requestSuggestionDetails(sug)
-SM -> SM : retrieveDetails(sug)
-activate SM #e8e8e8
-SM -> DBMS : executeQuery(query)
-DBMS --> SM : queryResults
+SM --> AWA : suggestionsList
 deactivate SM
-SM --> AWA : suggestionDetails
-AWA --> A : detailsPage
-alt Authority carries out the suggestion
-A -> AWA : markAsCarriedOut(sug)
-AWA -> R : markSuggestionAsCarriedOut(sug)
-R -> SM : markAsCarriedOut(sug)
+AWA --> A : suggestionsList
+A -> AWA : requestDetails(sug)
+AWA -> R : requestSuggestionDetails(sug.id)
+activate R
+R -> SM : getSuggestionDetails(id)
 deactivate R
-SM -> SM : markAsCarriedOut(sug)
-SM -> DBMS : executeQuery(query)
-DBMS --> SM : queryResult
+activate SM
+SM -> DBMS : selectSuggestion(id)
+activate DBMS
+DBMS --> SM : queryResults
+deactivate DBMS
+SM --> AWA : suggestionDetails
+deactivate SM
+AWA --> A : detailsCard
+opt Authority carries out the suggestion
+A -> AWA : markAsCarriedOut(sug)
+AWA -> R : markSuggestionAsCarriedOut(sug.id)
+activate R
+R -> SM : setSuggestionStatus\n(id,CARRIED_OUT)
+deactivate R
+activate SM
+SM -> DBMS : updateSuggestion(id,status)
+activate DBMS
+DBMS --> SM : success
 deactivate DBMS
 SM --> AWA : success
 deactivate SM
-AWA --> A : operationSuccess
+AWA --> A : success
 deactivate AWA
 end
 end
-
-
-
 
 @enduml
