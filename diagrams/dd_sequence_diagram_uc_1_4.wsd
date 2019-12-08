@@ -5,18 +5,19 @@ actor User as U
 participant ":UserMobileApp" as UMA
 participant ":Router" as R
 participant ":StatisticsEngine" as SE
-participant ":StatisticsRepresentationEngine" as SRE
+participant ":StatisticsRepresentationManager" as SRM
 participant ":DBMS" as DBMS
 
 U -> UMA : selectStatisticsPage()
 activate UMA
-UMA -> R : requestAvailableStatistics()
+UMA -> UMA : location = getCurrentLocation()
+UMA -> R : requestAvailableStatisticsTypes(location)
 activate R
-R -> SE : requestAvailableStatistics()
+R -> SE : requestAvailableStatisticsTypes(location)
 activate SE
-SE -> SE : checkAvailableStatistics()
+SE -> SE : checkAvailableStatistics(location)
 activate SE #e8e8e8
-SE -> DBMS : executeQuery(query)
+SE -> DBMS : selectViolations(query)
 activate DBMS
 DBMS --> SE : queryResults
 deactivate SE
@@ -24,33 +25,30 @@ alt There are no available statistics
 SE --> UMA : noStatisticsAvailableError
 UMA --> U : noStatisticsAvailable
 else
-SE --> UMA : availableStatistics
-UMA --> U : statisticsPage
-U -> UMA : selectStatistics(stat)
-UMA -> R : requestStatistics(stat)
-R -> SE : requestStatistics(stat)
+SE --> UMA : availableTypes
+UMA --> U : statisticsTypesPage
+U -> UMA : selectType(type)
+UMA -> R : requestStatistics(type,filters,MOBILE)
+R -> SE : requestStatistics(type,filters,MOBILE)
 deactivate R
-SE -> SE : fetchData()
+SE -> SE : fetchStatistics(type,filters)
 activate SE #e8e8e8
-SE -> DBMS : executeQuery(query)
+SE -> DBMS : selectViolations(query)
 DBMS --> SE : queryResults
 deactivate DBMS
 deactivate SE
-SE -> SRE : elaborateStatisticsData(data)
-activate SRE
-SRE -> SRE : elaborateData(data)
-SRE --> SE : elaboratedData
-deactivate SRE
-SE --> UMA : elaboratedData
+SE -> SRM : formatStatisticsData(type,queryResults,MOBILE)
+activate SRM
+SRM -> SRM : generateLabels(type,queryResults)
+SRM -> SRM : generateColors(type,queryResults)
+SRM -> SRM : applyFormat(MOBILE)
+SRM --> SE : formattedStatistics
+deactivate SRM
+SE --> UMA : formattedStatistics
 deactivate SE
-activate UMA #e8e8e8
-UMA -> UMA : renderStatistics(elaboratedData)
-deactivate UMA
+UMA -> UMA : renderStatistics(formattedStatistics)
 UMA --> U : visualizeData
 deactivate UMA
 end
-
-
-
 
 @enduml
