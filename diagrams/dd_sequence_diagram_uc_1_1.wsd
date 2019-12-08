@@ -10,21 +10,21 @@ participant ":DBMS" as DBMS
 U -> UMA : selectRegistrationPage()
 activate UMA
 UMA --> U: registrationPage
-U -> UMA : registerNewAccount(fiscalCode, username, password)
-UMA -> R : registerAccount(fiscalCode, username, password)
+U -> UMA : registerUser(fiscalCode, username, password)
+UMA -> R : registerUser(fiscalCode, username, password)
 activate R
-R -> AM : addAccount(fiscalCode, username, password)
+R -> AM : registerUser(fiscalCode, username, password)
 deactivate R
 activate AM
 AM -> AM : checkFiscalCode(fiscalCode)
 activate AM #e8e8e8
-AM -> DBMS : executeQuery(query)
+AM -> DBMS : selectUser(query)
 activate DBMS
 DBMS --> AM : queryResults
 deactivate AM
 AM -> AM : checkUsername(username)
 activate AM #e8e8e8
-AM -> DBMS : executeQuery(query)
+AM -> DBMS : selectUser(query)
 DBMS --> AM : queryResults
 deactivate AM
 alt invalid fiscal code format
@@ -37,7 +37,7 @@ UMA --> U : alreadyUsedError
 else
 activate AM #e8e8e8
 AM -> AM : securedPassword = securePassword(password)
-AM -> DBMS : addUser(fiscalcode, username, securedPassword)
+AM -> DBMS : insertUser(fiscalcode, username, securedPassword)
 DBMS --> AM : confirmMessage
 deactivate DBMS
 deactivate AM
