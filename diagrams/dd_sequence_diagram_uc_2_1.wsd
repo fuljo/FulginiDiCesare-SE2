@@ -11,15 +11,15 @@ participant ":FileServer" as FS
 
 A -> AWA : requestViolationPage()
 activate AWA
-AWA -> WS : retrieveStaticContent()
+AWA -> WS : get("/violations")
 activate WS
-WS --> AWA : staticContent
+WS --> AWA : webPage
 deactivate WS
 AWA -> R : requestViolationsList()
 activate R
-R -> VM : requestViolationsList()
+R -> VM : getViolationsList()
+deactivate R
 activate VM
-VM -> VM : vioList = retrieveViolations()
 note right
     ViolationManager firstly
     recognizes the Authority
@@ -28,44 +28,73 @@ note right
     in order to show only their
     violations
 end note
+VM -> VM : authority =\ndetermineAuthority(req.token)
 activate VM #e8e8e8
-VM -> DBMS : executeQuery(query)
+VM -> DBMS : select(req.token)
+activate DBMS
+DBMS --> VM : authority, accessToken
+deactivate DBMS
+alt Token is invalid or expired
+VM --> AWA : authenticationError
+deactivate VM
+AWA --> A : authenticationError
+else
+VM -> DBMS : selectViolations(authority)
 activate DBMS
 DBMS --> VM : queryResults
-VM -> FS : pictures = getPictures(vioList)
-activate FS
-FS --> VM : pictures
-deactivate FS
-deactivate VM
-VM -> VM : attachPictures(pictures, vioList)
-VM --> AWA : violationsList
-alt There are no Violations to be reviewed
-AWA --> A : violationReportsAlreadyReviewed
-else There are some Violations to be reviewed
-AWA --> A : violationsPage
-A -> AWA : selectViolation(vio)
-AWA -> R : requestAvailableActions(vio)
-R -> VM : requestAvailableActions(vio)
-VM -> VM : retrieveActions(vio)
-activate VM #e8e8e8
-VM -> DBMS : executeQuery(query)
-DBMS --> VM : queryResults
-deactivate VM
-VM --> AWA : availableActions
-AWA --> A : availableActions
-A -> AWA : selectAction(act, vio)
-AWA -> R : applyAction(act, vio)
-R -> VM : applyAction(act, vio)
-deactivate R
-VM -> VM : applyAction(act, vio)
-activate VM #e8e8e8
-VM -> DBMS : executeQuery(query)
-DBMS --> VM : queryResults
 deactivate DBMS
+VM --> AWA : violationsList
 deactivate VM
+AWA --> A : violationsList
+end
+opt There are no Violations to be reviewed
+AWA --> A : violationReportsAlreadyReviewed
+end
+opt View violation details 
+A -> AWA : viewViolationDetails(vio)
+par Retrieve available actions
+AWA -> R : requestAvailableViolationActions(vio.id)
+activate R
+R -> VM : requestAvailableActions(id)
+deactivate R
+activate VM
+VM -> DBMS : selectViolation(id)
+activate DBMS
+DBMS --> VM : vio
+deactivate DBMS
+VM -> VM : availableActions =\ndetermineActions(vio)
+VM --> AWA : availableActions
+deactivate VM
+else Retrieve image
+AWA -> R : requestViolationImage(vio.id)
+activate R
+R -> VM : getImage(id)
+deactivate R
+activate VM
+VM -> FS : getFile(id)
+activate FS
+FS --> VM : image
+deactivate FS
+VM --> AWA : image
+deactivate VM
+end
+AWA --> A : violationDetail
+
+opt Review pending violation
+A -> AWA : selectAction(act, vio)
+AWA -> R : applyViolationAction(act, vio)
+activate R
+R -> VM : applyAction(act, vio.id)
+deactivate R
+activate VM
+VM -> DBMS : updateViolation(id)
+activate DBMS
+DBMS --> VM : success
+deactivate DBMS
 VM --> AWA : confirmMessage
 deactivate VM
 AWA --> A : success
 deactivate AWA
+end
 end
 @enduml
