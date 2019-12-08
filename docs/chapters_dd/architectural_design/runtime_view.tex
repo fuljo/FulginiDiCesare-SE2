@@ -22,12 +22,20 @@ The interaction with the DBMS is modeled with the SQL verbs \texttt{select},
     \label{fig:dd_sequence_diagram_uc_1_1}
 \end{figure}
 
+\clearpage
+
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{dd_sequence_diagram_uc_1_2}
     \caption{Login process for a User}
     \label{fig:dd_sequence_diagram_uc_1_2}
 \end{figure}
+
+The login process for the operator is analogous to the one performed
+by the user, shown in figure~\ref{fig:dd_sequence_diagram_uc_1_2}.
+The only difference is that the operator interacts with the
+\emph{AuthorityWebApp} instead of the \emph{UserMobileApp}.
+
 
 \begin{figure}[ht]
     \centering

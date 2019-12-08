@@ -16,21 +16,24 @@ activate R
 R -> AM : loginUser(username, password)
 deactivate R
 activate AM
-AM -> AM : checkData(username, password)
+AM -> AM : checkCredentials(username, password)
 activate AM #e8e8e8
 AM -> AM : securedPassword = securePassword(password)
-AM -> DBMS : executeQuery(query)
+AM -> DBMS : selectUser(username,securedPassword)
 activate DBMS
 DBMS --> AM : queryResults
 deactivate AM
 deactivate DBMS
-alt user inserted incorrect data
+alt user inserted incorrect credentials
 AM --> UMA : notAuthorizedError
-UMA --> U : incorrectDataError
+UMA --> U : incorrectCredentialsError
 else
-AM -> AM : generateToken()
+AM -> AM : accessToken = generateToken()
+AM -> DBMS : insertAccessToken(username,accessToken,expiration)
+DBMS -> AM : confirmationMessage
 AM --> UMA : accessToken
 deactivate AM
+UMA --> UMA : saveToken(accessToken)
 UMA --> U : loginSuccessful
 deactivate UMA
 end
