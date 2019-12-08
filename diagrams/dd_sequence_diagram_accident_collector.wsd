@@ -6,35 +6,39 @@ participant ":MunicipalityAPIWrapper" as MAPIW
 participant ":SuggestionsEngine" as SE
 participant ":DBMS" as DBMS
 
-loop Scheduled every n hours
+loop When scheduled
 
-ADC -> MAPIW : requestUpdates()
+ADC -> ADC : collectMunicipalityUpdates(name)
 activate ADC
-activate MAPIW
-alt There are new accidents
-MAPIW --> ADC : updates
-ADC -> ADC : saveNewAccidents
-ADC -> DBMS : executeQuery(query)
+ADC -> DBMS : selectMunicipality(name)
 activate DBMS
-DBMS --> ADC : queryResults
-else
-MAPIW --> ADC : noUpdatesFound
+DBMS --> ADC : municipality
+deactivate DBMS
+ADC -> MAPIW : requestAccidents\n(municipality.name, municipality.lastCollected)
+activate MAPIW
+MAPIW --> ADC : newAccidents
 deactivate MAPIW
+ADC -> DBMS : insertAccidents(municipality, newAccidents)
+activate DBMS
+DBMS --> ADC : success
+deactivate DBMS
 deactivate ADC
 end
-end
 
-loop Scheduled every n hours
-SE -> SE : checkUpdates()
+loop When scheduled
+SE -> DBMS : selectMunicipality(name)
 activate SE
-SE -> DBMS : executeQuery(query)
-DBMS --> SE : queryResults
-SE -> SE : runMachineLearning()
-SE -> SE : insertNewSuggestions()
-SE -> DBMS : executeQuery(query)
-DBMS --> SE : queryResults
+activate DBMS
+DBMS --> SE : municipality
+deactivate DBMS
+SE -> SE : checkUpdates(municipality)
+alt There are new violations or accidents
+SE -> SE : newSuggestions =\nrunMachineLearning(municipality)
+SE -> DBMS : insertSuggestions(newSuggestions)
+activate DBMS
+DBMS --> SE : success
 deactivate DBMS
 deactivate SE
-
+end
 end
 @enduml
