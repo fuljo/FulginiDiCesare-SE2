@@ -5,6 +5,16 @@ exploded in the various components, just like in Figure
 \ref{fig:component_diagram}, and also the interaction between the components is
 described.
 
+Regarding the methods exposed by the components, please refer to
+section~\ref{sec:component_interfaces} where the interfaces of the main
+components are described. Note however that also calls to internal methods of
+the components are shown (always as self-arcs), so they are not included in the
+interfaces.
+Also note that the methods called by human actors on the clients are just
+\emph{placeholders} intended to model the interaction.
+The interaction with the DBMS is modeled with the SQL verbs \texttt{select},
+\texttt{insert}, \texttt{update} and \texttt{delete}.
+
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{dd_sequence_diagram_uc_1_1}
