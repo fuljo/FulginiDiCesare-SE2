@@ -29,7 +29,7 @@ DMV --> LPE : validationResponse
 deactivate DMV
 end
 alt Invalid License Plate or Plate not found
-LPE --> UMA : plateError
+LPE --> UMA : noPlateDetected
 UMA --> U : needManualPlateInsertion
 U -> UMA : insertPlateNumber(number)
 else License Plate OK
@@ -52,11 +52,18 @@ UMA -> U : needReinsertData
 else
 VC -> VM : addNewViolation(vio)
 activate VM
-VM -> DBMS : executeQuery(query)
+VM -> VM : authority = \nfindResponsibleAuthority\n(vio.latitude, vio.longitude)
+alt No responsible authority
+VM -> VC : noResponsibleAuhtorityError
+VC -> UMA : noResponsibleAuhtorityError
+UMA -> U : noResponsibleAuthority
+else
+VM -> VM : id = generateId()
+VM -> DBMS : insertViolation(id,vio)
 activate DBMS
-DBMS --> VM : queryResults
+DBMS --> VM : success
 deactivate DBMS
-VM -> FS : pushPicture(pic)
+VM -> FS : saveFile(id,pic)
 activate FS
 FS --> VM : success
 deactivate FS
