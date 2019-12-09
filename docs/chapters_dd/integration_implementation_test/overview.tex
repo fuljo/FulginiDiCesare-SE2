@@ -10,13 +10,13 @@ The \emph{SafeStreets} system is divided in these main parts:
     \item External API: DMV and Municipality
 \end{enumerate}
 
-As for the External API services, File Server and Web Server, these are less
-critical components of the system, so they can be developed after implementing
-the core features of \emph{SafeStreets}, or better, they can be found on the
-market, as they are commonly used components. By the way, it is strongly
-recommended opting for the \emph{BUY} choice. The User Mobile App and Authority
-Web App are merely frontend components, thus they can be developed independently
-from the backend, which requires a more careful approach.
+As for the External API services, File Server and Web Server, these components
+deserve special treatments since they won't be developed internally. For example
+the DBMS is easy to find on the market and since it's a commonly used component
+it won't be that expensive and it will be already tested and ready to use (after
+a brief configuration). The User Mobile App and Authority Web App are merely frontend
+components, thus they can be developed independently from the backend, which
+requires a more careful approach.
 
 A final note is dedicated to the front-end components: UserMobileApp and
 AuthorityWebApp. It is strongly recommended that these components are developed
