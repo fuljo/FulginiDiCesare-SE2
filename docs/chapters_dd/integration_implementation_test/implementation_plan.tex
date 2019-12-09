@@ -5,25 +5,26 @@ and the timing constraints they will need.
 From Figure \ref{fig:component_diagram}, it can be clearly seen that the
 components don't have specific dependencies, so the development process can be
 done in parallel. This is especially true if we consider that all the components
-use RESTful communication and they are completely stateless. This means that
-once one component has been developed, it can be immediately unit tested, even
-the methods that require communication with other components can be tested, this
-can be done by creating some \emph{ad-hoc stubs}.
+use RPC for internal communication. This means that once one component has been
+developed, it can be immediately unit tested, even the methods that require
+communication with other components can be tested, this can be done by creating
+some \emph{ad-hoc stubs} with the required interface.
 
 Specifically, the order in which the various components are implemented is not
 fixed, except for \emph{Router}, \emph{SuggestionsEngine} and
-\emph{DBMS/FileServer}. The main reason behind these choices is that, for
-example, the Router is responsible only of taking care of the incoming requests
-and forward them to the correct component, so it's role isn't critical in the
-integration of the components, plus it's developing process is quite trivial. As
-for the storage systems (DBMS and File Server), it is a common practice to test
-the components using volatile memory, so a working database is not needed from
-the very beginning. Note that this does not mean that the model of our world
-won't be designed before the implementing phase. Indeed in this document an ER
-Diagram of the DB is provided. As for SuggestionsEngine, its complexity compels
-us to start its implementation as soon as possible. It's a machine learning
-based component so the sooner it is ready, the better it is, because it can
-start its training and be truly ready for deployment.
+\emph{DBMS/FileServer (in case the MAKE option is preferred)}. The main reason
+behind these choices is that, for example, the Router is responsible only of
+taking care of the incoming requests and forward them to the correct component,
+so it's role isn't critical in the integration of the components, plus it's
+developing process is quite trivial. As for the storage systems (DBMS and File
+Server), it is a common practice to test the components using volatile memory,
+so a working database is not needed from the very beginning. Note that this does
+not mean that the model of our world won't be designed before the implementing
+phase. Indeed in this document an ER Diagram of the DB is provided. As for
+SuggestionsEngine, its complexity compels us to start its implementation as soon
+as possible. It's a machine learning based component so the sooner it is ready,
+the better it is, because it can start its training and be truly ready for
+deployment.
 
 Finally despite the fact that the order, as previously stated, is not important,
 some components should be implemented in pairs. It's the case of \emph{Violation
