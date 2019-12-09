@@ -8,7 +8,7 @@ Many researches lead by Aetna Insurance Company, Bell-Northern, Hewlett-Packard,
 SmartBear and Nasa, pointed out that code inspection has a massive role in
 unveiling defects of the code as well as bugs. Inspection will be done during
 the development process, as it can be done before the whole component has been
-implemented, but must still be done onto \emph{'finished'} blocks of code. By
+implemented, but must still be done onto "finished" blocks of code. By
 the way code inspection will be done only on back-end components, the front-end
 is designed as \emph{thin} so it shouldn't do anything apart from
 representation. Moreover, the frameworks that are suggested for the front-end
@@ -35,42 +35,42 @@ The actual inspection will be done in several meetings of the inspection team.
 As we can find in the researches mentioned above, it is functional to schedule
 two daily sessions of two hours each. An idea goal is to inspect approximately
 200/250 lines of code per session. Further details on the inspection process can
-be found here: \cite{smartbear:code-inspection}.
+be found in \cite{smartbear:code-inspection}.
 
 \subsection{Unit and integration testing}
 Once a component has been implemented and inspected, it must be unit tested to
 make sure it works by itself, then the integration test process can begin.
 In the following pictures, the component that must be integrated are shown.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=\linewidth]{integration_router}
+    \includegraphics[width=.8\linewidth]{integration_router}
     \caption{Integration testing for the Router}
     \label{fig:integration_router}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=\linewidth]{integration_violation}
+    \includegraphics[width=.75\linewidth]{integration_violation}
     \caption{Integration testing for Violation components}
     \label{fig:integration_violation}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=\linewidth]{integration_statistics}
+    \includegraphics[width=.65\linewidth]{integration_statistics}
     \caption{Integration testing for statistics components}
     \label{fig:integration_statistics}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{integration_dbms}
     \caption{Integration testing for all the components that use the DBMS}
     \label{fig:integration_dbms}
 \end{figure}
 \clearpage
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{integration_suggestions}
     \caption{Integration testing for \emph{SmartSuggestions} system}

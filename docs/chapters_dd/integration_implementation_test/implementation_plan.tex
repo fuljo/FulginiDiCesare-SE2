@@ -1,5 +1,5 @@
 \section{Implementation plan}
-In this section it will be showed how the various components will be developed
+This section shows how the various components will be developed
 and the timing constraints they will need. 
 
 From Figure \ref{fig:component_diagram}, it can be clearly seen that the
@@ -10,7 +10,7 @@ once one component has been developed, it can be immediately unit tested, even
 the methods that require communication with other components can be tested, this
 can be done by creating some \emph{ad-hoc stubs}.
 
-Specifically, the order which the various components are implemented is not
+Specifically, the order in which the various components are implemented is not
 fixed, except for \emph{Router}, \emph{SuggestionsEngine} and
 \emph{DBMS/FileServer}. The main reason behind these choices is that, for
 example, the Router is responsible only of taking care of the incoming requests
@@ -20,14 +20,14 @@ for the storage systems (DBMS and File Server), it is a common practice to test
 the components using volatile memory, so a working database is not needed from
 the very beginning. Note that this does not mean that the model of our world
 won't be designed before the implementing phase. Indeed in this document an ER
-Diagram of the DB is provided. As for SuggestionsEngine, it's complexity compels
-us to start it's implementation as soon as possible. It's a machine learning
+Diagram of the DB is provided. As for SuggestionsEngine, its complexity compels
+us to start its implementation as soon as possible. It's a machine learning
 based component so the sooner it is ready, the better it is, because it can
-start it's training and be truly ready for deployment.
+start its training and be truly ready for deployment.
 
-Finally despite the fact the order, as previously stated is not important, some
-components should be implemented in pairs. It's the case of \emph{Violation
+Finally despite the fact that the order, as previously stated, is not important,
+some components should be implemented in pairs. It's the case of \emph{Violation
 Collector} and \emph{ViolationManager}, \emph{MunicipalityAPIWrapper} and
-\emph{AccidentCollector}, \emph{StatisticsEngine} and
+\emph{AccidentDataCollector}, \emph{StatisticsEngine} and
 \emph{StatisticsRepresentationManager}. This can ben necessary as these pairs of
 components work closely and their integration should be as easy as possible.
