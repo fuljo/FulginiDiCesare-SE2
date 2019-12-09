@@ -15,7 +15,10 @@ The diagram shows the \emph{physical devices} in which the components will run,
 the \emph{communication channels} between the components and their
 \emph{software environment}.
 The system is split into \emph{four tiers}, the last three heavily relying on
-replication to achieve scalability and fault tolerance.
+replication to achieve scalability and fault tolerance. It is worth pointing out
+that tier 1 and 4 correspond to the \emph{presentation} and \emph{data} layers
+identified in section~\ref{sec:overview}, while the \emph{application} layer
+has been separated in tiers 2 and 3.
 
 \begin{description}
     \item[Client tier] It is composed by the end-user interfaces:
@@ -75,4 +78,4 @@ replication to achieve scalability and fault tolerance.
 \noindent
 For more details on the design choices, in particular how data is partitioned
 between nodes (and also under which assumptions),
-see~\ref{sec:styles_patterns}.
+see section~\ref{sec:styles_patterns}.
