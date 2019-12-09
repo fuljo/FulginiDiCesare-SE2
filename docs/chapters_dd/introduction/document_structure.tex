@@ -1,2 +1,36 @@
 \section{Document structure}
-% TODO: Write document structure
+The present document is divided into chapters. Here we give a brief description
+of each chapter and its intended audience.
+\begin{description}
+    \item[Chapter \ref{ch:intro}] introduces the document and gives a general
+    idea on the contents that will be found in the following chapters. Contains
+    also the revision history, references and the abbreviations and acronyms.
+    \item[Chapter \ref{ch:arcdes}] is the core chapter of the document. In the
+    first part gives a general idea on how the system will be, showing a
+    high-level view of the various parts and the layers. Then it goes into
+    details with the Component Diagram, Interface Diagram and the Database
+    Design. The Runtime View then describes how the components work together
+    during the most common user interactions. Finally the architectural choices
+    are shown. This chapter is intended for \emph{back-end developers} and the
+    \emph{sysadmin} as it shows how the back-end works and how t he various
+    bare-metal components interact.
+    \item[Chapter \ref{ch:ui}] describes how the User Interface works and how it
+    interacts with the user. The intended audience of this chapter are the
+    \emph{front-end developers}.
+    \item[Chapter \ref{ch:req}] provides a mapping between requirements and the
+    components in charge to satisfy them. Each requirement is analyzed in
+    details and also a brief description of how the component(s) will satisfy
+    the requirement is given. Then there is a section that discusses the
+    non-functional requirements and how the architectural choices fulfill them.
+    This chapter is intended for \emph{developers}, \emph{testers} and also for
+    \emph{designers}.
+    \item[Chapter \ref{ch:test}] outlines a general schedule of implementation
+    and testing. Firstly we have a general description on the various
+    functionalities and how difficult they are to implement and integrate, then
+    the implementation plan is discussed in details. Finally there is a section
+    dedicated to the testing phase, beginning with code inspection and then
+    ending with unit and integration test. The intended audience for this
+    chapter are \emph{testers}, \emph{developers} and the \emph{Project Manager}
+    who can use this chapter as a reference to check whether the project
+    development is sticking to the plan.
+\end{description}
